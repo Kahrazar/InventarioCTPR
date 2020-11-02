@@ -12,7 +12,7 @@ namespace Inventario.Controllers
         //Este objeto se encarga de proveer los datos de la Bd
 
 
-        private BienesRepository repositorio;
+      
 
         public BienesController()
         {
@@ -22,8 +22,10 @@ namespace Inventario.Controllers
 
         // GET: Bienes
         public ActionResult VerBienes()
-        {
-            var model = repositorio.obtenerTodosLosBienes();
+        {  
+            
+            private BienesRepository repositorio;
+           var model = repositorio.obtenerTodosLosBienes();
             return View(model);
         }
 
