@@ -14,19 +14,53 @@ namespace Inventario.Controllers
 {
     public class BienesController : Controller
     {
+        //Objetos de uso
         private Filtrador filtro = new Filtrador();
         private ApplicationDbContext db = new ApplicationDbContext();
         private BienesRepository repositorio = new BienesRepository();//Objeto que proporcionara los datos provenientes de la BD
         private TempRepository tempRepositorio = new TempRepository();
 
-        //Accion para ver bienes
+        //Acciones para la vista ver bienes
+        public ActionResult Filtrado(CondicionesEnum condicion, VerBienesViewModel vm)
+        {
+            VerBienesViewModel modelo = new VerBienesViewModel();
+            List<Bienes> bienesFiltrados = new List<Bienes>();
+            if ((int)condicion == 0)
+            {
+                modelo.bienes = repositorio.obtenerBienesActivos();
+            }
+            else
+            {
+                modelo.bienes= repositorio.obtenerBienesDeBaja();
+            }
+         
+
+            foreach (Bienes item in modelo.bienes)
+            {
+                if (vm.IDEspecialidad == 0)
+                {
+
+                }
+                else
+                {
+                    if (vm.IDEspecialidad == item.IDEspecialidad)
+                    {
+                        bienesFiltrados.Add(item);
+                    }
+                }
+            }
+            modelo.bienes = bienesFiltrados;
+            modelo.especialidades = repositorio.obtenerEspecialidades();
+            return View("VerBienes", modelo);
+        }
+
         public ActionResult BuscarVerBienes(string id)
         {
             List<Bienes> lista = new List<Bienes>();
-      
             if (id == "")
             {
                 lista = repositorio.obtenerBienesActivos();
+               
                 return View("VerBienes",lista);
             }
             else
@@ -45,23 +79,25 @@ namespace Inventario.Controllers
             }
         }
 
-
     public ActionResult RestablecerLista()
         {
-            List<Bienes> lista = new List<Bienes>();
-            lista = repositorio.obtenerBienesActivos();
-            return View("VerBienes",lista);
+            VerBienesViewModel modelo = new VerBienesViewModel();
+            modelo.bienes = repositorio.obtenerBienesActivos();
+            modelo.especialidades = repositorio.obtenerEspecialidades();
+            return View("VerBienes",modelo);
         }
-
 
     public ActionResult VerBienes()
-        {
-            List<Bienes> bienesSinFiltrar = repositorio.obtenerTodosLosBienes();
-            var model = filtro.filtrarBienesAcivos(bienesSinFiltrar);//Extrae solamente los bienes activos
-            return View(model);
+        { 
+            VerBienesViewModel modelo = new VerBienesViewModel();
+
+           modelo.bienes = repositorio.obtenerBienesActivos();
+           modelo.especialidades = repositorio.obtenerEspecialidades();
+           return View(modelo);
         }
 
-        //Acciones para anadir Bienes
+       
+        //Acciones para la vista anadir Bienes
         public ActionResult AnadirBienes()
         {
             //Este viewbag contiene los datos necesarios para que funcione  adecuadamente el DropDownList

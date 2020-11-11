@@ -8,18 +8,9 @@ namespace Inventario.Services
 {
     public class Filtrador
     {
-        public List<Bienes> filtrarBienesAcivos(List <Bienes> bienesAFiltrar)
+        public List<Bienes> filtrarEspecialidad(List<Bienes> bienesAfiltrar, int especialidad)
         {
-            List<Bienes> bienesFiltrados = new List<Bienes>();
-            foreach (var item in bienesAFiltrar)
-            {
-                if ((int)item.condicion == 0)
-                {
-                    bienesFiltrados.Add(item);
-                }
-            }
-            return  bienesFiltrados;
-        }
 
+        }
     }
 }

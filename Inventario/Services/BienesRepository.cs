@@ -38,14 +38,38 @@ namespace Inventario.Services
                 }
         }
 
+        public List<Bienes> obtenerBienesDeBaja()
+        {
+            using (var db = new ApplicationDbContext())
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var bienes = db.Bienes
+                    .Include(b => b.Especialidad)
+                    .Where(b => b.condicion == CondicionesEnum.DeBaja)
+                    .ToList();
+
+                    return bienes;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
         public List<Bienes> obtenerBienesActivos()//Este metodo extrae solamente los bienes que tienen la condicion de activo
         {
             using (var db = new ApplicationDbContext())
             try
             {
-             db.Configuration.LazyLoadingEnabled = false;
-                      var bienes = db.Bienes.SqlQuery("SELECT * FROM dbo.\"Bienes\" where condicion = 0").ToList();
-                      return bienes;
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var bienes = db.Bienes
+                    .Include(b => b.Especialidad)
+                    .Where(b => b.condicion == 0)
+                    .ToList();
+                    
+                    return bienes;
                 }
             catch (Exception)
             {

@@ -1,35 +1,60 @@
 ﻿@using Inventario.Models
-@model IEnumerable<Inventario.Models.Bienes>
-
+@model Inventario.ViewModels.VerBienesViewModel
 @{
     ViewBag.Title = "Ver Bienes";
     Layout = "~/Views/Shared/LayoutPage.cshtml";
 }
 
-    <h2 class="text-center titulo">Ver Bienes</h2>
+<h2 class="text-center titulo">Ver Bienes</h2>
 <div class="row">
-    @using (Html.BeginForm("BuscarVerBienes", "Bienes",FormMethod.Post,new {@class ="form-inline col-7" }))
+    @using (Html.BeginForm("BuscarVerBienes", "Bienes", FormMethod.Post, new { @class = "form-inline col border" }))
     {
-        <div class="form-group">
-            <label>
+        <div class=" ">
+            <label class="" >
                 Buscar Bien:
                 <input type="text" class="" name="id" placeholder="Numero de patrimonio" />
-                <input type="submit" value="buscar" class=" " />
-            </label>  
+                <input type="submit" value="buscar" class="" />
+            </label> 
         </div>
     }
-
-    @using (Html.BeginForm("RestablecerLista","Bienes"))
+    <div class="btn-group col border">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Filtrar</button>
+        <div class="dropdown-menu">
+            @using (Html.BeginForm("Filtrado","Bienes"))
+            {
+                <div class="">
+                  <label class="form-group">Especialidad</label>
+                   @Html.DropDownListFor(model => model.IDEspecialidad, new SelectList(Model.especialidades,"ID","nombreEspecialidad"),"Seleccionar")
+                  
+                    <div class="form-group">
+                        <label>
+                            Condicion:
+                            <label>
+                                Activo
+                                @Html.RadioButton("condicion", CondicionesEnum.Activo, true)
+                            </label>
+                            <label>
+                                De Baja
+                                @Html.RadioButton("condicion", CondicionesEnum.DeBaja)
+                            </label>
+                        </label>
+                    </div>
+                   <div  class="col-md-offset-2 col-md-10">
+                       <input type="submit" value="Aplicar" />
+                   </div>
+                </div>
+            }
+        </div>
+    </div>
+    @using (Html.BeginForm("RestablecerLista","Bienes",FormMethod.Post,new {@class="col border form-inline" }))
     {
-        <div class="col-3">
+        <div class="">
             <input type="submit" value="Reestablecer" class="" />
         </div>
     }
 </div>
 
-
-
-    <hr />
+<hr />
 <div class="row">
     <div class="col-12">
         <table class="table table-striped table-responsive-sm">
@@ -51,24 +76,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
+               @if (Model.bienes == null)
+               {
+                <tr><td align="center" colspan="10">No se han encontrado objetos</td></tr>
+               }
+               else
+               {
+                   foreach (Bienes bien in Model.bienes)
+                   {
                     <tr>
-                        <td>@Html.DisplayFor(modelItem => item.numeroDePatrimonio)</td>
-                        <td>@Html.DisplayFor(modelItem => item.codigoDeBarras)</td>
-                        <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.marca)</td>
-                        <td>@Html.DisplayFor(modelItem => item.modelo)</td>
-                        <td>@Html.DisplayFor(modelItem => item.serie)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ley)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ubicacion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.Especialidad.nombreEspecialidad)</td>
-                        <td>@Html.DisplayFor(modelItem => item.estado)</td>
-                        <td>@Html.DisplayFor(modelItem => item.condicion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.numeroDeFactura)</td>
-                        <td>@Html.DisplayFor(modelItem => item.anadidoPor)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.numeroDePatrimonio)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.codigoDeBarras)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.marca)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.modelo)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.serie)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.ley)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.ubicacion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.Especialidad.nombreEspecialidad)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.estado)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.condicion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.numeroDeFactura)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.anadidoPor)</td>
                     </tr>
-                    }
+                   }
+               }
             </tbody>
         </table>
     </div> 
