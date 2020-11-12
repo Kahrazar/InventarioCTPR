@@ -24,6 +24,7 @@
         <div class="dropdown-menu">
             @using (Html.BeginForm("Filtrado","Bienes"))
             {
+                @Html.AntiForgeryToken()
                 <label>Condicion</label>  
                 @Html.DropDownListFor( model => model.estado,new SelectList(Enum.GetValues(typeof(EstadosVMEnum))))
 
@@ -32,7 +33,7 @@
                   
                     <div class="">
                         <label>Condicion:</label>
-                            <label>
+                         <label>
                                 Activo
                                 @Html.RadioButton("condicion", CondicionesEnum.Activo, true)
                             </label>
@@ -40,7 +41,6 @@
                                 De Baja
                                 @Html.RadioButton("condicion", CondicionesEnum.DeBaja)
                             </label>
-                        
                     </div>
                    <div  class="col-md-offset-2 col-md-10">
                        <input type="submit" value="Aplicar" />
@@ -49,6 +49,7 @@
         </div>
     </div>
     @using (Html.BeginForm("RestablecerLista","Bienes",FormMethod.Post,new {@class="col border form-inline" }))
+        
     {
         <div class="">
             <input type="submit" value="Reestablecer" class="" />
@@ -106,5 +107,4 @@
             </tbody>
         </table>
     </div> 
-
 </div>

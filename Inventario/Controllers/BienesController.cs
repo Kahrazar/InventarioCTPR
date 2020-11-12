@@ -21,33 +21,26 @@ namespace Inventario.Controllers
         private TempRepository tempRepositorio = new TempRepository();
 
         //Acciones para la vista ver bienes
+
+        [ValidateAntiForgeryToken]
         public ActionResult Filtrado(CondicionesEnum condicion, VerBienesViewModel vm)
         {
             VerBienesViewModel modelo = new VerBienesViewModel();
+
             List<Bienes> bienesFiltrados = new List<Bienes>();
-            if ((int)condicion == 0)
-            {
-                modelo.bienes = repositorio.obtenerBienesActivos();
-            }
-            else
-            {
-                modelo.bienes= repositorio.obtenerBienesDeBaja();
-            }
+            List<Bienes> listaPrueba = new List<Bienes>();
+
+            bienesFiltrados = filtro.filtrarCondicion((int)condicion);
 
             if (vm.IDEspecialidad == 0)
             {
+
             }
             else
             {
-                foreach (Bienes item in modelo.bienes)
-                {
-                    if (vm.IDEspecialidad == item.IDEspecialidad)
-                    {
-                        bienesFiltrados.Add(item);
-                    }
-                }
-                modelo.bienes = bienesFiltrados;
+                bienesFiltrados = filtro.filtrarEspecialidad(bienesFiltrados,vm.IDEspecialidad);
             }
+                  
 
             if ((int)vm.estado == 0)
             {
@@ -55,17 +48,13 @@ namespace Inventario.Controllers
             }
             else
             {
-                //List<Bienes> bienesEstado = new List<Bienes>();
-                foreach (Bienes item in modelo.bienes)
-                {
-                    if((int)vm.estado-1 == (int)item.estado)
-                    {
-                        bienesFiltrados.Add(item);
-                    }
-                }
-                modelo.bienes = bienesFiltrados;
+                listaPrueba = bienesFiltrados;
+                listaPrueba = filtro.filtrarEstado(listaPrueba,(int)vm.estado);
+
+                bienesFiltrados = listaPrueba;
             }
 
+            modelo.bienes = bienesFiltrados;
             modelo.especialidades = repositorio.obtenerEspecialidades();
             return View("VerBienes", modelo);
         }
