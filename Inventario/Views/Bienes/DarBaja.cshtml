@@ -1,8 +1,72 @@
-﻿
+﻿@*@model List<Inventario.Models.Bienes>*@
+@model List<Inventario.Models.Bienes>
 @{
-    ViewBag.Title = "DarBaja";
+    ViewBag.Title = "Dar de Baja";
     Layout = "~/Views/Shared/LayoutPage.cshtml";
 }
 
-<h2>DarBaja</h2>
+<h2 class="text-center titulo">Dar de baja bienes</h2>
+<h3>Busque los objetos a dar de baja</h3>
+@using (Html.BeginForm("BuscarDarBaja","Bienes"))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <h3>Digite numero de patrimonio</h3>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="text" name="id">
+        </div>
+        <input type="submit" value="Buscar" />
+    </div>
+}
 
+<h3>Bienes a dar de baja:</h3>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numero de patrimonio</th>
+                <th>Codigo de Barras</th>
+                <th>Descripcion</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Serie</th>
+                <th>Ubicacion</th>
+                <th>Estado</th>
+                <th>Condicion</th>
+                <th>Numero de factura</th>
+            </tr>
+        </thead>
+        <tbody>
+              
+            @if(Model == null)
+            {
+                <tr><td align="center" colspan="10">Aun no se han anadido objetos</td></tr>
+            }
+            else
+            {
+                @*<tr><td>Se puede tirar el modelo</td></tr>*@
+            foreach (var item in Model)
+            {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.numeroDePatrimonio)</td>
+                        <td>@Html.DisplayFor(modelItem => item.codigoDeBarras)</td>
+                        <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.marca)</td>
+                        <td>@Html.DisplayFor(modelItem => item.modelo)</td>
+                        <td>@Html.DisplayFor(modelItem => item.serie)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ubicacion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.estado)</td>
+                        <td>@Html.DisplayFor(modelItem => item.condicion)</td>
+                        <td>@Html.DisplayFor(modelItem => item.numeroDeFactura)</td>
+                    </tr>
+                }
+            }  
+        </tbody>
+    </table>
+    @using (Html.BeginForm("DarBaja","Bienes",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        <div class="form-actions">
+            <input type="submit" value="Dar de Baja" class="btn-light" /> 
+        </div>
+    }
+</div>

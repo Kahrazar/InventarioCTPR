@@ -139,6 +139,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Global.asax" />
+    <Content Include="imgs\cole.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -167,6 +168,11 @@
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.js" />
     <Content Include="Scripts\jquery-3.0.0.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -238,6 +244,7 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Styles\layoutStyles.css" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -251,9 +258,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\LayoutPage.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Bienes\ActualizarBienes.cshtml" />
     <Content Include="Views\Bienes\AnadirBienes.cshtml" />
-    <Content Include="Views\Bienes\DarBaja.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -265,9 +270,18 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Bienes.cs" />
+    <Compile Include="Models\BienTemporal.cs" />
+    <Compile Include="Models\Condiciones.cs" />
+    <Compile Include="Models\Especialidad.cs" />
+    <Compile Include="Models\Estados.cs" />
     <Compile Include="Models\NpgsqlConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BienesRepository.cs" />
+    <Compile Include="Services\Filtrador.cs" />
+    <Compile Include="Services\TempRepository.cs" />
+    <Compile Include="System\Windows\Forms.cs" />
+    <Compile Include="ViewModels\EstadosVMEnum.cs" />
+    <Compile Include="ViewModels\VerBienesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -275,6 +289,9 @@
     <Content Include="Scripts\jquery-3.0.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Bienes\VerBienes.cshtml" />
+    <Content Include="Views\Bienes\ActualizarBienes.cshtml" />
+    <Content Include="Views\DarBaja.cshtml" />
+    <Content Include="Views\Bienes\DarBaja.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -284,9 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Styles\" />
     <Folder Include="Views\LogIn\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
