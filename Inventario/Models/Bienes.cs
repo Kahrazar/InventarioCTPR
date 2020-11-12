@@ -66,7 +66,7 @@ namespace Inventario.Models
             marca = "Desconocido";
             modelo = "Desconocido";
             serie = "0000";
-            //Especialidad= 00;
+            IDEspecialidad= 1;
             ubicacion = "C-0";
             estado = estado = EstadosEnum.Excelente;
             condicion = condicion = CondicionesEnum.Activo;

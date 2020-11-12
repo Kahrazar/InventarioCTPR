@@ -1,0 +1,20 @@
+﻿body {
+}
+
+.bgNaranja {
+    background-color: #F9D9AA;
+}
+
+.negro{
+    background-color:black;
+}
+
+.titulo {
+    padding-top:30px;
+
+}
+
+.padin{
+    padding-left:5px;
+    padding-right:5px;
+}

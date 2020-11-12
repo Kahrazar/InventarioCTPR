@@ -10,7 +10,7 @@ namespace Inventario.Models
         //Modelos que se van a tomar para hacer tablas por entity frameWork   
         public DbSet<Especialidad> Especialidad { get; set; }
         public DbSet<Bienes> Bienes { get; set; }
-
+        public DbSet<BienTemporal> BienTemporal { get; set; }
         //Configurciones de la base de datos
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -24,7 +24,6 @@ namespace Inventario.Models
         public ApplicationDbContext() : base("con")
         {
         }
-
 
     }
 }

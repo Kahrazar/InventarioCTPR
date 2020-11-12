@@ -24,29 +24,32 @@ namespace Inventario.Services
             }
         }
 
-        public SelectList obtenerListaGet()//Este metodo obtiene los datos para llenar el DropDownList de la vista Anadir Bienes, debe ser usado en el action Get
-        {//Obtiene especificamente las especialidades
-            using (var db = new ApplicationDbContext())
-                try
-                {
-                    SelectList lista = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
-                    return lista;
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            
-
-          
-        }
-
        public  List<Bienes> obtenerTodosLosBienes()
         {
             using (var db = new ApplicationDbContext())
                 try
                 {
-                    return db.Bienes.ToList();
+                    return db.Bienes.Include(e => e.Especialidad).ToList();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
+        public List<Bienes> obtenerBienesDeBaja()
+        {
+            using (var db = new ApplicationDbContext())
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+                    var bienes = db.Bienes
+                    .Include(b => b.Especialidad)
+                    .Where(b => b.condicion == CondicionesEnum.DeBaja)
+                    .ToList();
+
+                    return bienes;
                 }
                 catch (Exception)
                 {
@@ -61,9 +64,12 @@ namespace Inventario.Services
             try
             {
                     db.Configuration.LazyLoadingEnabled = false;
-                      var bienes = db.Bienes.SqlQuery("SELECT * FROM dbo.\"Bienes\" where condicion = 0").ToList();
-                      return bienes;
-
+                    var bienes = db.Bienes
+                    .Include(b => b.Especialidad)
+                    .Where(b => b.condicion == 0)
+                    .ToList();
+                    
+                    return bienes;
                 }
             catch (Exception)
             {
@@ -78,7 +84,12 @@ namespace Inventario.Services
             using(var db = new ApplicationDbContext())
             try
             {
-                return db.Bienes.Find(id);
+                db.Configuration.LazyLoadingEnabled = false;
+                Bienes bien = db.Bienes
+                .Include(a => a.Especialidad)
+                .Where(a => a.numeroDePatrimonio == id)
+                .SingleOrDefault();
+                return bien;
             }
             catch (Exception)
             {
@@ -86,10 +97,29 @@ namespace Inventario.Services
             }
         }
 
+        public void darDeBaja(List<Bienes> bienesM)
+        {
+            using (var db = new ApplicationDbContext())
+                try
+                {
+                    foreach (var item in bienesM)
+                    {
+                        item.condicion = CondicionesEnum.DeBaja;
+                        db.Entry(item).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
+
         public void actualizarBien(Bienes bien)//Este metodo actualiza los datos
         {
             using (var db = new ApplicationDbContext())
-
                 try
                 {
                     db.Entry(bien).State = EntityState.Modified;

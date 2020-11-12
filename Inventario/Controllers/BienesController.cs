@@ -8,44 +8,105 @@ using System.Web;
 using System.Web.Mvc;
 using Inventario.Models;
 using Inventario.Services;
+using Inventario.ViewModels;
 
 namespace Inventario.Controllers
 {
     public class BienesController : Controller
     {
+        //Objetos de uso
+        private Filtrador filtro = new Filtrador();
         private ApplicationDbContext db = new ApplicationDbContext();
+        private BienesRepository repositorio = new BienesRepository();//Objeto que proporcionara los datos provenientes de la BD
+        private TempRepository tempRepositorio = new TempRepository();
 
-        private BienesRepository repositorio =new BienesRepository();//Objeto que proporcionara los datos provenientes de la BD
-        
-        public ActionResult VerBienes()
+        //Acciones para la vista ver bienes
+
+        [ValidateAntiForgeryToken]
+        public ActionResult Filtrado(CondicionesEnum condicion, VerBienesViewModel vm)
         {
-            //var model = repositorio.obtenerTodosLosBienes();
+            VerBienesViewModel modelo = new VerBienesViewModel();
 
-            var model = repositorio.obtenerBienesActivos();//Extrae solamente los bienes activos
-            return View(model);
+            List<Bienes> bienesFiltrados = new List<Bienes>();
+            List<Bienes> listaPrueba = new List<Bienes>();
+
+            bienesFiltrados = filtro.filtrarCondicion((int)condicion);
+
+            if (vm.IDEspecialidad == 0)
+            {
+
+            }
+            else
+            {
+                bienesFiltrados = filtro.filtrarEspecialidad(bienesFiltrados,vm.IDEspecialidad);
+            }
+                  
+
+            if ((int)vm.estado == 0)
+            {
+
+            }
+            else
+            {
+                listaPrueba = bienesFiltrados;
+                listaPrueba = filtro.filtrarEstado(listaPrueba,(int)vm.estado);
+
+                bienesFiltrados = listaPrueba;
+            }
+
+            modelo.bienes = bienesFiltrados;
+            modelo.especialidades = repositorio.obtenerEspecialidades();
+            return View("VerBienes", modelo);
         }
 
-        public ActionResult Details(string id)
+        public ActionResult BuscarVerBienes(string id)
         {
-            if (id == null)
+            List<Bienes> lista = new List<Bienes>();
+            if (id == "")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                lista = repositorio.obtenerBienesActivos();
+               
+                return View("VerBienes",lista);
             }
-            Bienes bienes = db.Bienes.Find(id);
-            if (bienes == null)
+            else
             {
-                return HttpNotFound();
+                Bienes bien = new Bienes();
+                bien = repositorio.buscarBien(id);
+                if (bien == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    lista.Add(bien);
+                    return View("VerBienes", lista);
+                }
             }
-            return View(bienes);
         }
 
-        
+    public ActionResult RestablecerLista()
+        {
+            VerBienesViewModel modelo = new VerBienesViewModel();
+            modelo.bienes = repositorio.obtenerBienesActivos();
+            modelo.especialidades = repositorio.obtenerEspecialidades();
+            return View("VerBienes",modelo);
+        }
+
+    public ActionResult VerBienes()
+        { 
+            VerBienesViewModel modelo = new VerBienesViewModel();
+
+           modelo.bienes = repositorio.obtenerBienesActivos();
+           modelo.especialidades = repositorio.obtenerEspecialidades();
+           return View(modelo);
+        }
+
+       
+        //Acciones para la vista anadir Bienes
         public ActionResult AnadirBienes()
         {
             //Este viewbag contiene los datos necesarios para que funcione  adecuadamente el DropDownList
-
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
-            //ViewBag.IDEspecialidad = repositorio.obtenerListaGet();
             return View();
         }
 
@@ -57,11 +118,11 @@ namespace Inventario.Controllers
             {
                 repositorio.anadirBien(bienes);
             }
-
-           ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
+            ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
             return View(bienes);
         }
 
+        //Acciones Para Actualizar
         [ValidateAntiForgeryToken]
         public ActionResult BuscarBien(string id)
         {
@@ -69,30 +130,26 @@ namespace Inventario.Controllers
             {
                 ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
                 return RedirectToAction("ActualizarBienes");
-            }else
+            } else
             {
                 Bienes bien = repositorio.buscarBien(id);
                 if (bien == null)
                 {
                     return HttpNotFound();
                 }
-
                 ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bien.IDEspecialidad);
-                return View("ActualizarBienes",bien);
-            } 
+              
+                return View("ActualizarBienes", bien);
+            }
         }
-
-
-        //Actualizar Bienes :Get
+        //Accion GetRequest
         [HttpGet]
         public ActionResult ActualizarBienes()
         {
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
             return View();
         }
-
-        // POST: Bienes/Edit/5
-       
+        //Accion Post
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ActualizarBienes([Bind(Include = "numeroDePatrimonio,codigoDeBarras,descripcion,anadidoPor,numeroDeFactura,ley,marca,modelo,serie,idEspecialidad,ubicacion,estado,condicion")] Bienes bienes)
@@ -104,6 +161,53 @@ namespace Inventario.Controllers
             }
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
             return View(bienes);
+        }
+
+        //Acciones para Dar de baja
+        [ValidateAntiForgeryToken]
+        public ActionResult BuscarDarBaja(string id)
+        {  
+            if (id == "")
+            {
+                return RedirectToAction("DarBaja");
+            }
+            else
+            {
+                Bienes bien = repositorio.buscarBien(id);
+                if (bien == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    tempRepositorio.anadirBienTemp(bien);
+                    List<Bienes>bienesDarBaja= tempRepositorio.extraerData();
+                    return View("DarBaja",bienesDarBaja);
+                }
+            }
+        }
+
+        // List<Bienes> bienesDarBaja = new List<Bienes>();
+        [HttpGet]
+        public ActionResult DarBaja()
+        {
+
+            tempRepositorio.limpiar();
+
+
+            return View("DarBaja");
+        }
+ 
+        [HttpPost]
+        public ActionResult DarBaja(List<Bienes> bienes)
+        {
+
+          List<Bienes> lista =  tempRepositorio.extraerData();
+     
+            repositorio.darDeBaja(lista);
+            
+            //var model = bienesDarBaja;   bienesDarBaja
+            return View();
         }
 
         // GET: Bienes/Delete/5
