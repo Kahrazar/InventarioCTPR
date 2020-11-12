@@ -82,7 +82,7 @@ namespace Inventario.Controllers
             return View();
         }
 
-        //Metodo para comprobar si se inicio sesion
+        /*Metodo para comprobar si se inicio sesion
         public ActionResult LoggedIn()
         {
             if (Session["idCedula"] != null)
@@ -93,7 +93,7 @@ namespace Inventario.Controllers
             {
                 return RedirectToAction("Login");
             }
-        }
+        }*/
 
         public ActionResult EditarUsuario(Usuario user)
         {
@@ -109,6 +109,6 @@ namespace Inventario.Controllers
         {
             return View(user);
         }
-
+       
     }
 }
