@@ -13,5 +13,7 @@ namespace Inventario.ViewModels
 
         public IEnumerable<Especialidad> especialidades { get; set; }
         public int IDEspecialidad { get; set; }
+        public EstadosVMEnum estado { get; set; }
+
     }
 }

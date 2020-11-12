@@ -1,4 +1,5 @@
 ﻿@using Inventario.Models
+@using Inventario.ViewModels
 @model Inventario.ViewModels.VerBienesViewModel
 @{
     ViewBag.Title = "Ver Bienes";
@@ -18,17 +19,19 @@
         </div>
     }
     <div class="btn-group col border">
-        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Filtrar</button>
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">Filtrar Bienes</button>
+       
         <div class="dropdown-menu">
             @using (Html.BeginForm("Filtrado","Bienes"))
             {
-                <div class="">
-                  <label class="form-group">Especialidad</label>
-                   @Html.DropDownListFor(model => model.IDEspecialidad, new SelectList(Model.especialidades,"ID","nombreEspecialidad"),"Seleccionar")
+                <label>Condicion</label>  
+                @Html.DropDownListFor( model => model.estado,new SelectList(Enum.GetValues(typeof(EstadosVMEnum))))
+
+                <label class="">Especialidad</label>
+                   @Html.DropDownListFor(model => model.IDEspecialidad, new SelectList(Model.especialidades,"ID","nombreEspecialidad"),"No Filtrar")
                   
-                    <div class="form-group">
-                        <label>
-                            Condicion:
+                    <div class="">
+                        <label>Condicion:</label>
                             <label>
                                 Activo
                                 @Html.RadioButton("condicion", CondicionesEnum.Activo, true)
@@ -37,12 +40,11 @@
                                 De Baja
                                 @Html.RadioButton("condicion", CondicionesEnum.DeBaja)
                             </label>
-                        </label>
+                        
                     </div>
                    <div  class="col-md-offset-2 col-md-10">
                        <input type="submit" value="Aplicar" />
                    </div>
-                </div>
             }
         </div>
     </div>

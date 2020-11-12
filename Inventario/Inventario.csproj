@@ -280,6 +280,7 @@
     <Compile Include="Services\Filtrador.cs" />
     <Compile Include="Services\TempRepository.cs" />
     <Compile Include="System\Windows\Forms.cs" />
+    <Compile Include="ViewModels\EstadosVMEnum.cs" />
     <Compile Include="ViewModels\VerBienesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

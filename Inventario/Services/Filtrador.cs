@@ -8,9 +8,9 @@ namespace Inventario.Services
 {
     public class Filtrador
     {
-        public List<Bienes> filtrarEspecialidad(List<Bienes> bienesAfiltrar, int especialidad)
-        {
+        //public List<Bienes> filtrarEspecialidad(List<Bienes> bienesAfiltrar, int especialidad)
+        //{
 
-        }
+        //}
     }
 }

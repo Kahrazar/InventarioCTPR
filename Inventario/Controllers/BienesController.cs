@@ -33,23 +33,39 @@ namespace Inventario.Controllers
             {
                 modelo.bienes= repositorio.obtenerBienesDeBaja();
             }
-         
 
-            foreach (Bienes item in modelo.bienes)
+            if (vm.IDEspecialidad == 0)
             {
-                if (vm.IDEspecialidad == 0)
-                {
-
-                }
-                else
+            }
+            else
+            {
+                foreach (Bienes item in modelo.bienes)
                 {
                     if (vm.IDEspecialidad == item.IDEspecialidad)
                     {
                         bienesFiltrados.Add(item);
                     }
                 }
+                modelo.bienes = bienesFiltrados;
             }
-            modelo.bienes = bienesFiltrados;
+
+            if ((int)vm.estado == 0)
+            {
+
+            }
+            else
+            {
+                //List<Bienes> bienesEstado = new List<Bienes>();
+                foreach (Bienes item in modelo.bienes)
+                {
+                    if((int)vm.estado-1 == (int)item.estado)
+                    {
+                        bienesFiltrados.Add(item);
+                    }
+                }
+                modelo.bienes = bienesFiltrados;
+            }
+
             modelo.especialidades = repositorio.obtenerEspecialidades();
             return View("VerBienes", modelo);
         }
