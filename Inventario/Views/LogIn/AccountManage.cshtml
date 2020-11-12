@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<Inventario.Models.Usuario>
 
-@{
-    ViewBag.Title = "AccountManage";
+@{    ViewBag.Title = "Administración de usuarios";
 }
 
-<h2>AccountManage</h2>
+<h2>Administración de usuarios</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Agregar Usuario", "Register")
 </p>
 <table class="table">
     <tr>
@@ -16,6 +15,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Contraseña)
@@ -41,9 +41,9 @@
             @Html.DisplayFor(modelItem => item.NivelDePrivilegio)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserID })
+            @Html.ActionLink("Editar", "EditarUsuario", new { id=item.UserID }) |
+            @Html.ActionLink("Detalles", "MostrarUsuario", new { id=item.UserID }) |
+            @Html.ActionLink("Eliminar", "EliminarUsuario", new { id=item.UserID })
         </td>
     </tr>
 }

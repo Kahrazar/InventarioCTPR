@@ -1,0 +1,50 @@
+﻿@model Inventario.Models.Usuario
+
+@{
+    ViewBag.Title = "Mostrar Usuario";
+}
+
+<h2>Mostrar usuario</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cedula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Contraseña)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Contraseña)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NivelDePrivilegio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NivelDePrivilegio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar usuario", "EditarUsuario", new { id = Model.UserID }) |
+    @Html.ActionLink("Volver a Administración de usuarios", "AccountManage")
+</p>

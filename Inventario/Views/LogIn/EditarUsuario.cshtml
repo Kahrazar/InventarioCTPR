@@ -1,13 +1,13 @@
 ﻿@model Inventario.Models.Usuario
 
 @{
-    ViewBag.Title = "Registrar Usuario";
+    ViewBag.Title = "Editar Usuario";
 }
 
-<h2>Registrar Usuario</h2>
+<h2>Editar usuario</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -15,6 +15,8 @@
         <h4>Usuario</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserID)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Cedula, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -49,14 +51,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Registrar usuario" class="btn btn-default" />
+                <input type="submit" value="Guardar cambios" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Volver a Inicio", "Index")
+    @Html.ActionLink("Volver a Administración de usuarios", "AccountManage")
 </div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>

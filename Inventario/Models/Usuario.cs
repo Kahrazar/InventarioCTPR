@@ -8,11 +8,13 @@ namespace Inventario.Models
 {
     public class Usuario
     {
+
         [Key]
         public int UserID { get; set; }
-
-        [Required(ErrorMessage = "Nombre completo es requerido.")]
-        public int Cedula { get; set; }
+       
+        [Required(ErrorMessage = "Cedula completa es requerido.")]
+        [StringLength(10)]
+        public string Cedula { get; set; }
         
         [Required(ErrorMessage ="Nombre completo es requerido.")]
         public string Nombre { get; set; }
@@ -21,6 +23,7 @@ namespace Inventario.Models
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
+        [Display(Name ="Nivel de ´privilegio")]
         [Required(ErrorMessage = "Rol de usuario es requerido.")]
         public string NivelDePrivilegio { get; set; }
 
