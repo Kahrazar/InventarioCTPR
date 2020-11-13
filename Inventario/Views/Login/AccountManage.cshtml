@@ -1,0 +1,52 @@
+﻿
+
+@{    ViewBag.Title = "Administración de usuarios";
+}
+
+<h2>Administración de usuarios</h2>
+
+<p>
+    @Html.ActionLink("Agregar Usuario", "Register")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cedula)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contraseña)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelDePrivilegio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contraseña)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NivelDePrivilegio)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "EditarUsuario", new { id = item.UserID }) |
+                @Html.ActionLink("Detalles", "MostrarUsuario", new { id = item.UserID }) |
+                @Html.ActionLink("Eliminar", "EliminarUsuario", new { id = item.UserID })
+            </td>
+        </tr>
+    }
+
+</table>

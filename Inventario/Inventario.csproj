@@ -299,6 +299,7 @@
     <Content Include="Views\Especialidad\AgregarEspecialidad.cshtml" />
     <Content Include="Views\Especialidad\EditarEspecialidad.cshtml" />
     <Content Include="Views\Especialidad\EliminarEspecialidad.cshtml" />
+    <Content Include="Views\Login\AccountManage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -308,7 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
