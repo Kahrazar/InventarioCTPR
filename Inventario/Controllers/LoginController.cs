@@ -2,7 +2,9 @@
 using Inventario.Services;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,7 +14,7 @@ namespace Inventario.Controllers
     {
 
         // private UsuariosRepo UR = new UsuariosRepo();
-        //private ApplicationDbContext db = new ApplicationDbContext();
+        //pr ApplicationDbContext db = new ApplicationDbContext();
 
         public ActionResult AccountManage()
         {
@@ -94,21 +96,93 @@ namespace Inventario.Controllers
                 return RedirectToAction("Login");
             }
         }*/
+       
+        //Metodos para Editar Usuarios
+        [HttpGet]
+        public ActionResult EditarUsuario(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    Usuario user = db.Usuarios.Find(id);
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(user);
+                }
+            }
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditarUsuario(Usuario user)
         {
+            if (ModelState.IsValid)
+            {
+                using (var db = new ApplicationDbContext())
+                    try
+                    {
+                        db.Entry(user).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("AccountManage");
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+            }else
+            {
+                ModelState.AddModelError("","Datos Invalidos");
+            }
             return View(user);
         }
 
-        public ActionResult MostrarUsuario(Usuario user)
+        //Metodos para Eliminar Usuarios
+        [HttpGet]
+        public ActionResult EliminarUsuario(int? id)
         {
-            return View(user);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            else
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    Usuario user = db.Usuarios.Find(id);
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    return View(user);
+                }
+            }
         }
 
-        public ActionResult EliminarUsuario(Usuario user)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EliminarUsuario(int id )
         {
-            return View(user);
-        }
+            using (var db = new ApplicationDbContext())
+                try
+                {
+                    Usuario user = db.Usuarios.Find(id);
+                    db.Usuarios.Remove(user);
+                    db.SaveChanges();
+                    return RedirectToAction("AccountManage");
+                }
+                catch (Exception)
+                {
 
+                    throw;
+                }
+        }
     }
 }

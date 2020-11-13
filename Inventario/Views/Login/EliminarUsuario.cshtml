@@ -5,11 +5,10 @@
     Layout = "~/Views/Shared/LayoutPage.cshtml";
 }
 
-<h2>Eliminar usuario</h2>
+<h2 class="text-center titulo">Eliminar usuario</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3 class="text-center">Deseas Eliminar este usuario?</h3>
 <div>
-    <h4>Usuario</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -51,8 +50,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("", "Index")
+            <input type="submit" value="Eliminar Usuario" class="btn btn-default" />
         </div>
     }
+    @Html.ActionLink("Volver", "AccountManage", "Login")
 </div>

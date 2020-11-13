@@ -99,22 +99,7 @@ namespace Inventario.Controllers
         {
             repositorio.reasignarEspecialidad(id);
             repositorio.eliminarEspecialidad(id);
-            //using (var db = new ApplicationDbContext())
-            //    try
-            //    {
-            //        Especialidad especialidad = db.Especialidad.Find(id);
-            //        db.Especialidad.Remove(especialidad);
-            //        db.SaveChanges();
-            //    }
-            //    catch (Exception)
-            //    {
-
-            //        throw;
-            //    }
          
-               
-
-                // repositorio.eliminarEspecialidad(especialidad);
                 return RedirectToAction("VerEspecialidades");
 
         }
