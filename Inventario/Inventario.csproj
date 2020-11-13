@@ -303,6 +303,7 @@
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\EditarUsuario.cshtml" />
     <Content Include="Views\Login\EliminarUsuario.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
