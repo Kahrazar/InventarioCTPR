@@ -264,7 +264,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BienesController.cs" />
     <Compile Include="Controllers\EspecialidadController.cs" />
-    <Compile Include="Controllers\EspecialidadsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -294,10 +293,6 @@
     <Content Include="Views\Bienes\VerBienes.cshtml" />
     <Content Include="Views\Bienes\ActualizarBienes.cshtml" />
     <Content Include="Views\Bienes\DarBaja.cshtml" />
-    <Content Include="Views\Especialidads\Create.cshtml" />
-    <Content Include="Views\Especialidads\Delete.cshtml" />
-    <Content Include="Views\Especialidads\Details.cshtml" />
-    <Content Include="Views\Especialidads\Edit.cshtml" />
     <Content Include="Views\Especialidad\VerEspecialidades.cshtml" />
     <Content Include="Views\Especialidad\AgregarEspecialidad.cshtml" />
     <Content Include="Views\Especialidad\EditarEspecialidad.cshtml" />
