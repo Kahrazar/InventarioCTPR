@@ -24,7 +24,7 @@ namespace Inventario.Models
             [DataType(DataType.Password)]
             public string Contraseña { get; set; }
 
-            [Display(Name = "Nivel de ´privilegio")]
+            [Display(Name = "Nivel de privilegio")]
             [Required(ErrorMessage = "Rol de usuario es requerido.")]
             public string NivelDePrivilegio { get; set; }
 
