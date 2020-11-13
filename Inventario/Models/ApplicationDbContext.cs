@@ -11,7 +11,7 @@ namespace Inventario.Models
         public DbSet<Especialidad> Especialidad { get; set; }
         public DbSet<Bienes> Bienes { get; set; }
         public DbSet<BienTemporal> BienTemporal { get; set; }
-      
+        public DbSet<Usuario> Usuarios { get; set; }
         //Configurciones de la base de datos
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
