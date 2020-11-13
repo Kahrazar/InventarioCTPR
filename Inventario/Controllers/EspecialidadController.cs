@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Inventario.Services;
 using Inventario.Models;
+using System.Net;
 
 namespace Inventario.Controllers
 {
@@ -35,67 +36,87 @@ namespace Inventario.Controllers
         public ActionResult AgregarEspecialidad(Especialidad collection)
         {
            collection.ID = repositorio.generarID();
-            repositorio.anadirEspecialidad(collection);
             if (ModelState.IsValid)
             {
-                try
-                {
-                    
-
-                    return RedirectToAction("VerEspecialidades");
-                }
-                catch
-                {
-                    return View();
-                }
+                repositorio.anadirEspecialidad(collection);
+                return RedirectToAction("VerEspecialidades");
             }
-
             return View();
-
         }
 
         // GET: Especialidad/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult EditarEspecialidad(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Especialidad especialidad = repositorio.buscarEspecialidad(id);
+            if (especialidad == null)
+            {
+                return HttpNotFound();
+            }
+            return View(especialidad);
+            
+           
         }
 
         // POST: Especialidad/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult EditarEspecialidad(Especialidad especialidad)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                repositorio.editarEspecialidad(especialidad);
+                return RedirectToAction("VerEspecialidades");
             }
-            catch
+            else
             {
-                return View();
+                return View("EditarEspecialidad",especialidad);
             }
         }
 
         // GET: Especialidad/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult EliminarEspecialidad(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Especialidad especialidad = repositorio.buscarEspecialidad(id);
+            if (especialidad == null)
+            {
+                return HttpNotFound();
+            }
+            return View(especialidad);
         }
 
         // POST: Especialidad/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult EliminarEspecialidad(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            repositorio.reasignarEspecialidad(id);
+            repositorio.eliminarEspecialidad(id);
+            //using (var db = new ApplicationDbContext())
+            //    try
+            //    {
+            //        Especialidad especialidad = db.Especialidad.Find(id);
+            //        db.Especialidad.Remove(especialidad);
+            //        db.SaveChanges();
+            //    }
+            //    catch (Exception)
+            //    {
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            //        throw;
+            //    }
+         
+               
+
+                // repositorio.eliminarEspecialidad(especialidad);
+                return RedirectToAction("VerEspecialidades");
+
         }
     }
 }

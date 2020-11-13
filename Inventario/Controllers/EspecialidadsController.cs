@@ -20,20 +20,7 @@ namespace Inventario.Controllers
             return View(db.Especialidad.ToList());
         }
 
-        // GET: Especialidads/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Especialidad especialidad = db.Especialidad.Find(id);
-            if (especialidad == null)
-            {
-                return HttpNotFound();
-            }
-            return View(especialidad);
-        }
+        
 
         // GET: Especialidads/Create
         public ActionResult Create()
@@ -59,7 +46,7 @@ namespace Inventario.Controllers
         }
 
         // GET: Especialidads/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult EditarEspecialidad(int? id)
         {
             if (id == null)
             {
@@ -78,7 +65,7 @@ namespace Inventario.Controllers
         // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,nombreEspecialidad")] Especialidad especialidad)
+        public ActionResult EditarEspecialidad([Bind(Include = "ID,nombreEspecialidad")] Especialidad especialidad)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +77,7 @@ namespace Inventario.Controllers
         }
 
         // GET: Especialidads/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult EliminarEspecialidad(int? id)
         {
             if (id == null)
             {
