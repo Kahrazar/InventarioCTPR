@@ -276,6 +276,7 @@
     <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Estados.cs" />
     <Compile Include="Models\NpgsqlConfiguration.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BienesRepository.cs" />
     <Compile Include="Services\EspecialidadRepository.cs" />
