@@ -263,6 +263,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BienesController.cs" />
+    <Compile Include="Controllers\EspecialidadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -277,6 +278,7 @@
     <Compile Include="Models\NpgsqlConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BienesRepository.cs" />
+    <Compile Include="Services\EspecialidadRepository.cs" />
     <Compile Include="Services\Filtrador.cs" />
     <Compile Include="Services\TempRepository.cs" />
     <Compile Include="System\Windows\Forms.cs" />
@@ -290,8 +292,11 @@
     <Content Include="Scripts\jquery-3.0.0.min.map" />
     <Content Include="Views\Bienes\VerBienes.cshtml" />
     <Content Include="Views\Bienes\ActualizarBienes.cshtml" />
-    <Content Include="Views\DarBaja.cshtml" />
     <Content Include="Views\Bienes\DarBaja.cshtml" />
+    <Content Include="Views\Especialidad\VerEspecialidades.cshtml" />
+    <Content Include="Views\Especialidad\AgregarEspecialidad.cshtml" />
+    <Content Include="Views\Especialidad\EditarEspecialidad.cshtml" />
+    <Content Include="Views\Especialidad\EliminarEspecialidad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

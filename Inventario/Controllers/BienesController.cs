@@ -119,7 +119,7 @@ namespace Inventario.Controllers
                 repositorio.anadirBien(bienes);
             }
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
-            return View(bienes);
+            return View();
         }
 
         //Acciones Para Actualizar

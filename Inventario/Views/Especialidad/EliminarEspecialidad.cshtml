@@ -1,0 +1,33 @@
+﻿@model Inventario.Models.Especialidad
+
+@{
+    ViewBag.Title = "Eliminar Especialidad";
+    Layout = "~/Views/Shared/LayoutPage.cshtml";
+}
+
+<h2 class="text-center titulo">Eliminar Especialidad</h2>
+
+<h3 class="">Deseas eliminar Esta Especialidad?</h3>
+<h4 class="text-warning">Atencion: Si la especialidad tiene asignada objetos, estos se reasignaran automaticamente a Ninguna</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreEspecialidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreEspecialidad)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Volver", "VerEspecialidades")
+        </div>
+    }
+</div>
