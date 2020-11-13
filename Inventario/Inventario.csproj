@@ -301,6 +301,7 @@
     <Content Include="Views\Especialidad\EliminarEspecialidad.cshtml" />
     <Content Include="Views\Login\AccountManage.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Login\EditarUsuario.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
