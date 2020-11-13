@@ -61,6 +61,9 @@ namespace Inventario.Controllers
 
         public ActionResult BuscarVerBienes(string id)
         {
+            VerBienesViewModel modelo = new VerBienesViewModel();
+            modelo.especialidades = repositorio.obtenerEspecialidades();
+
             List<Bienes> lista = new List<Bienes>();
             if (id == "")
             {
@@ -79,7 +82,8 @@ namespace Inventario.Controllers
                 else
                 {
                     lista.Add(bien);
-                    return View("VerBienes", lista);
+                    modelo.bienes = lista;
+                    return View("VerBienes", modelo);
                 }
             }
         }
