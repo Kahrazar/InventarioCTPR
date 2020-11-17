@@ -5,17 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-
-
 namespace Inventario.Models
 {
     public class Bienes
     {
         //Atributos
-        [Key]
+        [Key][Required(ErrorMessage ="Campo Obligatorio")]
         public string numeroDePatrimonio { get; set; }//llave primaria
 
-        [Required]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string codigoDeBarras { get;  set; }
 
          [StringLength(30)]
@@ -23,7 +21,7 @@ namespace Inventario.Models
        
         public string anadidoPor { get; set; }//Llave foranea
 
-        [Required]
+        [Required(ErrorMessage = "Campo Obligatorio")]
         public string numeroDeFactura { get;  set; }//llave foranea
 
         public string ley { get; set; }
@@ -38,7 +36,7 @@ namespace Inventario.Models
         public string serie { get; set; }
 
     
-        public int IDEspecialidad { get; set; }
+        public int IDEspecialidad { get; set; }//Llave foranea por definir
 
         //LlaveForanea
         [ForeignKey("IDEspecialidad")]
@@ -48,10 +46,10 @@ namespace Inventario.Models
         [StringLength(3)]
         public string ubicacion { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Seleccion Obligatoria")]
         public EstadosEnum estado { get;  set; }
 
-        [Required]
+        [Required(ErrorMessage = "Seleccion Obligatoria")]
         public CondicionesEnum condicion { get;  set; }
 
         //Metodos constructores

@@ -22,6 +22,7 @@ namespace Inventario.Controllers
 
         //Acciones para la vista ver bienes
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Filtrado(CondicionesEnum condicion, VerBienesViewModel vm)
         {
@@ -34,14 +35,12 @@ namespace Inventario.Controllers
 
             if (vm.IDEspecialidad == 0)
             {
-
             }
             else
             {
                 bienesFiltrados = filtro.filtrarEspecialidad(bienesFiltrados,vm.IDEspecialidad);
             }
-                  
-
+                
             if ((int)vm.estado == 0)
             {
 
@@ -50,10 +49,8 @@ namespace Inventario.Controllers
             {
                 listaPrueba = bienesFiltrados;
                 listaPrueba = filtro.filtrarEstado(listaPrueba,(int)vm.estado);
-
                 bienesFiltrados = listaPrueba;
             }
-
             modelo.bienes = bienesFiltrados;
             modelo.especialidades = repositorio.obtenerEspecialidades();
             return View("VerBienes", modelo);
@@ -68,8 +65,9 @@ namespace Inventario.Controllers
             if (id == "")
             {
                 lista = repositorio.obtenerBienesActivos();
-               
-                return View("VerBienes",lista);
+                modelo.bienes = lista;
+
+                return View("VerBienes",modelo);
             }
             else
             {
@@ -77,7 +75,7 @@ namespace Inventario.Controllers
                 bien = repositorio.buscarBien(id);
                 if (bien == null)
                 {
-                    return HttpNotFound();
+                    return RedirectToAction("VerBienes");
                 }
                 else
                 {
@@ -98,10 +96,9 @@ namespace Inventario.Controllers
 
     public ActionResult VerBienes()
         { 
-            VerBienesViewModel modelo = new VerBienesViewModel();
-
+           VerBienesViewModel modelo = new VerBienesViewModel();
            modelo.bienes = repositorio.obtenerBienesActivos();
-           modelo.especialidades = repositorio.obtenerEspecialidades();
+           modelo.especialidades = repositorio.obtenerEspecialidades();//Esta linea obtienes las especialidades de la base de datos, es importante para poder llenar los dropdownlist de filtrado
            return View(modelo);
         }
 
@@ -121,9 +118,15 @@ namespace Inventario.Controllers
             if (ModelState.IsValid)
             {
                 repositorio.anadirBien(bienes);
+                return View();
             }
+            else
+            {
+                ModelState.AddModelError("", "Datos Invalidos");
+  
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
-            return View();
+                return View();
+            }
         }
 
         //Acciones Para Actualizar
