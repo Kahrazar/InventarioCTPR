@@ -10,14 +10,12 @@
    
 
     @using (Html.BeginForm("AnadirBienes", "Bienes", FormMethod.Post, new { id = "formulario" }))
-                {
-                    @Html.AntiForgeryToken()
-
+      {
+        @Html.AntiForgeryToken()
       <div class="form-horizontal">
       <p>Digite los datos requeridos</p>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
         <div class="form-group">
             @Html.LabelFor(model => model.numeroDePatrimonio,"Número de Patrimonio", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -122,12 +120,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" enabled id="" value="Añadir" class="btn btn-default" />
+                <input type="submit" enabled id="anadir" value="Añadir" class="btn btn-default" />
             </div>
         </div>
    </div>
 }
-<script src="~/Scripts/validar.js"></script>
+<script src="~/Scripts/validaranadir.js"></script>
 <div>
     @Html.ActionLink("Ver Bienes", "VerBienes")
 </div>

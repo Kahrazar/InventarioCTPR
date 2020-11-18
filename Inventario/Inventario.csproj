@@ -245,6 +245,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\validar.js" />
+    <Content Include="Scripts\validaranadir.js" />
     <Content Include="Styles\layoutStyles.css" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />

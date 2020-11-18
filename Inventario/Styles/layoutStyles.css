@@ -11,10 +11,14 @@
 
 .titulo {
     padding-top:30px;
-
+    padding-bottom:30px;
 }
 
 .padin{
     padding-left:5px;
     padding-right:5px;
+}
+
+.alineado{
+   top:25px;
 }
