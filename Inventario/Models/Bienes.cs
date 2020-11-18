@@ -36,11 +36,11 @@ namespace Inventario.Models
         [StringLength(20)]
         public string serie { get; set; }
 
-    
-        public int IDEspecialidad { get; set; }//Llave foranea por definir
+        [ForeignKey("Especialidad")]
+        public int IDEspecialidad { get; set; }
 
         //LlaveForanea
-        [ForeignKey("IDEspecialidad")]
+     
         public virtual Especialidad Especialidad { get; set; }
 
 

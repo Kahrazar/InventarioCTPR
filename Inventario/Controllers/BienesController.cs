@@ -118,18 +118,18 @@ namespace Inventario.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AnadirBienes([Bind(Include = "numeroDePatrimonio,codigoDeBarras,descripcion,anadidoPor,numeroDeFactura,ley,marca,modelo,serie,idEspecialidad,ubicacion,estado,condicion")] Bienes bienes)
+        public ActionResult AnadirBienes([Bind(Include = "numeroDePatrimonio,codigoDeBarras,descripcion,anadidoPor,numeroDeFactura,ley,marca,modelo,serie,IDEspecialidad,ubicacion,estado,condicion")] Bienes bienes)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
                 repositorio.anadirBien(bienes);
                 return View();
             }
             else
             {
                 ModelState.AddModelError("", "Llena correctamente todos los campos");
-  
-            ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
+                ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
                 return View();
             }
         }
@@ -210,15 +210,14 @@ namespace Inventario.Controllers
             return View("DarBaja");
         }
  
+
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult DarBaja(List<Bienes> bienes)
         {
-
-          List<Bienes> lista =  tempRepositorio.extraerData();
-     
+            List<Bienes> lista =  tempRepositorio.extraerData();
             repositorio.darDeBaja(lista);
-            
-            //var model = bienesDarBaja;   bienesDarBaja
+            tempRepositorio.limpiar();
             return View();
         }
 
