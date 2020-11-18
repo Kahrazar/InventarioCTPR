@@ -11,6 +11,7 @@ namespace Inventario.Models
     {
         //Atributos
         [Key][Required(ErrorMessage ="Campo Obligatorio")]
+        [RegularExpression(@"([A-Z]{3}\d{3})|(\d+)", ErrorMessage = "Formato Invalido, no puede contener espacios ni simbolos.")]
         public string numeroDePatrimonio { get; set; }//llave primaria
 
         [Required(ErrorMessage = "Campo Obligatorio")]

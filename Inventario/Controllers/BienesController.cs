@@ -56,26 +56,31 @@ namespace Inventario.Controllers
             return View("VerBienes", modelo);
         }
 
-        public ActionResult BuscarVerBienes(string id)
+        [ValidateAntiForgeryToken]
+        public ActionResult BuscarVerBienes([Bind(Include = "numeroDePatrimonio")]VerBienesViewModel vm)
         {
+     
             VerBienesViewModel modelo = new VerBienesViewModel();
             modelo.especialidades = repositorio.obtenerEspecialidades();
-
             List<Bienes> lista = new List<Bienes>();
-            if (id == "")
+
+            if (vm.numeroDePatrimonio == null)
             {
+                ModelState.AddModelError("", "Debes llenar este campo");
                 lista = repositorio.obtenerBienesActivos();
                 modelo.bienes = lista;
-
                 return View("VerBienes",modelo);
             }
             else
             {
                 Bienes bien = new Bienes();
-                bien = repositorio.buscarBien(id);
-                if (bien == null)
+               bien = repositorio.buscarBien(vm.numeroDePatrimonio);
+                if (bien ==null)
                 {
-                    return RedirectToAction("VerBienes");
+                    lista = repositorio.obtenerBienesActivos();
+                    modelo.bienes = lista;
+                    ModelState.AddModelError("", "Bien no encontrado");
+                    return View("VerBienes", modelo);
                 }
                 else
                 {
@@ -122,7 +127,7 @@ namespace Inventario.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Datos Invalidos");
+                ModelState.AddModelError("", "Llena correctamente todos los campos");
   
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
                 return View();

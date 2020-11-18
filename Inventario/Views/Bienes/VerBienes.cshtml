@@ -13,10 +13,13 @@
         @*Barra de busqueda*@
         <div class="col-4 border">
             @using (Html.BeginForm("BuscarVerBienes", "Bienes", FormMethod.Post, new { @class = "float-right" }))
-            {
-                    <label class="">Buscar Bien:</label>
-                        <input type="text" class="" name="id" placeholder="Numero de patrimonio" />
-                        <input type="submit" value="buscar" class="" />
+            { @Html.AntiForgeryToken()
+             
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <label class="">Buscar Bien:</label>
+                @Html.EditorFor(m => m.numeroDePatrimonio, new { htmlAttributes = new { maxlength = 10 } })
+                @Html.ValidationMessageFor(model => model.numeroDePatrimonio, "", new { @class = "text-danger" })
+                <input type="submit" value="buscar" class="" />
             }
         </div>
         @*Menu de filtrado*@
