@@ -11,31 +11,36 @@ namespace Inventario.Models
     {
         //Atributos
         [Key][Required(ErrorMessage ="Campo Obligatorio")]
-        [RegularExpression(@"([A-Z]{3}\d{3})|(\d+)", ErrorMessage = "Formato Invalido, no puede contener espacios ni simbolos.")]
+        [RegularExpression(@"([A-Z]{3}\d{3})|(\d+)", ErrorMessage = "No puede contener espacios ni simbolos.")]
         public string numeroDePatrimonio { get; set; }//llave primaria
 
+
         [Required(ErrorMessage = "Campo Obligatorio")]
+        [RegularExpression(@"\d{8,10}", ErrorMessage = "Solo puedes digitar numeros")]
         public string codigoDeBarras { get;  set; }
 
-         [StringLength(30)]
+        [StringLength(30)]
         public string descripcion { get; set; }
        
         public string anadidoPor { get; set; }//Llave foranea
 
+        [RegularExpression(@"\d{8,10}",ErrorMessage = "Solo puedes digitar numeros")]
         [Required(ErrorMessage = "Campo Obligatorio")]
         public string numeroDeFactura { get;  set; }//llave foranea
-
+        [RegularExpression(@"\d{4,6}",ErrorMessage ="Formato Invalido")]
         public string ley { get; set; }
 
-        [StringLength(20)]
+        [RegularExpression(@"[A-Za-z0-9]+",ErrorMessage ="No puede contener espacions ni simbolos")]
+        [StringLength(10)]
         public string marca { get; set; }
 
-        [StringLength(20)]
+        [StringLength(15)]
         public string modelo { get; set; }
 
+        [RegularExpression(@"[a-zA-z0-9]+", ErrorMessage = "No puede contener espacions ni simbolos")]
         [StringLength(20)]
         public string serie { get; set; }
-
+     
         [ForeignKey("Especialidad")]
         public int IDEspecialidad { get; set; }
 
@@ -43,8 +48,8 @@ namespace Inventario.Models
      
         public virtual Especialidad Especialidad { get; set; }
 
-
         [StringLength(3)]
+        [RegularExpression(@"[A-Z]-\d", ErrorMessage ="Formato invalido, digita una letra seguido de - y numeros")]
         public string ubicacion { get; set; }
 
         [Required(ErrorMessage = "Seleccion Obligatoria")]
