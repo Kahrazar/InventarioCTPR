@@ -16,7 +16,7 @@ namespace Inventario.Models
 
 
         [Required(ErrorMessage = "Campo Obligatorio")]
-        [RegularExpression(@"\d{8,10}", ErrorMessage = "Solo puedes digitar numeros")]
+        [RegularExpression(@"\d{8,10}", ErrorMessage = "Formato Incorrecto")]
         public string codigoDeBarras { get;  set; }
 
         [StringLength(30)]
@@ -27,14 +27,15 @@ namespace Inventario.Models
         [RegularExpression(@"\d{8,10}",ErrorMessage = "Solo puedes digitar numeros")]
         [Required(ErrorMessage = "Campo Obligatorio")]
         public string numeroDeFactura { get;  set; }//llave foranea
+
         [RegularExpression(@"\d{4,6}",ErrorMessage ="Formato Invalido")]
         public string ley { get; set; }
 
-        [RegularExpression(@"[A-Za-z0-9]+",ErrorMessage ="No puede contener espacions ni simbolos")]
+        [RegularExpression(@"[A-Za-z0-9]+",ErrorMessage= "Formati Invalido ")]
         [StringLength(10)]
         public string marca { get; set; }
 
-        [StringLength(15)]
+        [StringLength(20)]
         public string modelo { get; set; }
 
         [RegularExpression(@"[a-zA-z0-9]+", ErrorMessage = "No puede contener espacions ni simbolos")]

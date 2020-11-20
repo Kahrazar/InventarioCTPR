@@ -246,6 +246,7 @@
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\validar.js" />
     <Content Include="Scripts\validaranadir.js" />
+    <Content Include="Scripts\validarEditar.js" />
     <Content Include="Styles\layoutStyles.css" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -285,8 +286,9 @@
     <Compile Include="Services\EspecialidadRepository.cs" />
     <Compile Include="Services\Filtrador.cs" />
     <Compile Include="Services\TempRepository.cs" />
-    <Compile Include="Services\Validacion.cs" />
+    <Compile Include="Services\ViewModelMaper.cs" />
     <Compile Include="System\Windows\Forms.cs" />
+    <Compile Include="ViewModels\DarBajaViewModel.cs" />
     <Compile Include="ViewModels\EstadosVMEnum.cs" />
     <Compile Include="ViewModels\VerBienesViewModel.cs" />
   </ItemGroup>

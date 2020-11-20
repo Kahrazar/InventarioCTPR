@@ -41,7 +41,6 @@ namespace Inventario.Services
                       
                        
                     }
-                
                 }
                 catch (Exception)
                 {
@@ -109,6 +108,24 @@ namespace Inventario.Services
                     throw;
                 }
         }
+
+        public IEnumerable<Especialidad> obtenerEspecialidadesIE()
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+                try
+                {
+                    db.Configuration.LazyLoadingEnabled = false;
+
+
+                    return db.Especialidad;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
         public List<Especialidad> obtenerEspecialidades()//Este metodo extrae las especialiadades de la base de datos
         {
             using (var db = new ApplicationDbContext())

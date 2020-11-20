@@ -19,9 +19,10 @@ namespace Inventario.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private BienesRepository repositorio = new BienesRepository();//Objeto que proporcionara los datos provenientes de la BD
         private TempRepository tempRepositorio = new TempRepository();
-
+        private ViewModelMaper maper = new ViewModelMaper();
+        private EspecialidadRepository repoEspecialidad = new EspecialidadRepository();
+       
         //Acciones para la vista ver bienes
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Filtrado(CondicionesEnum condicion, VerBienesViewModel vm)
@@ -122,9 +123,9 @@ namespace Inventario.Controllers
         {
             if (ModelState.IsValid)
             {
-                ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
+             
                 repositorio.anadirBien(bienes);
-                return View();
+                return RedirectToAction("VerBienes");
             }
             else
             {
@@ -140,18 +141,23 @@ namespace Inventario.Controllers
         {
             if (id == "")
             {
+                ModelState.AddModelError("","No puede dejar el espacio Buscar Vacio");
                 ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
-                return RedirectToAction("ActualizarBienes");
+                return View("ActualizarBienes");
             } else
             {
                 Bienes bien = repositorio.buscarBien(id);
                 if (bien == null)
                 {
-                    return HttpNotFound();
+                    ModelState.AddModelError("", "Bien no encontrado");
+                    ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad");
+                    return View("ActualizarBienes", bien);
                 }
-                ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bien.IDEspecialidad);
-              
-                return View("ActualizarBienes", bien);
+                else
+                {
+                    ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad",bien.IDEspecialidad);
+                    return View("ActualizarBienes", bien);
+                }
             }
         }
         //Accion GetRequest
@@ -170,6 +176,10 @@ namespace Inventario.Controllers
             {
                 repositorio.actualizarBien(bienes);
                 return RedirectToAction("VerBienes");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Datos Invalidos");
             }
             ViewBag.IDEspecialidad = new SelectList(db.Especialidad, "ID", "nombreEspecialidad", bienes.IDEspecialidad);
             return View(bienes);
@@ -206,7 +216,7 @@ namespace Inventario.Controllers
 
             tempRepositorio.limpiar();
 
-
+            
             return View("DarBaja");
         }
  

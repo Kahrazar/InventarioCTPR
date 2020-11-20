@@ -10,6 +10,8 @@
 @using (Html.BeginForm("BuscarDarBaja","Bienes"))
 {
     @Html.AntiForgeryToken()
+   
+    @Html.ValidationSummary()
     <div class="form-group">
         <h3>Digite numero de patrimonio</h3>
         <div class="col-md-offset-2 col-md-10">
