@@ -309,6 +309,7 @@
     <Content Include="Views\Login\EditarUsuario.cshtml" />
     <Content Include="Views\Login\EliminarUsuario.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Bienes\ConfirmarBaja.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

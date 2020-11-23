@@ -1,74 +1,78 @@
-﻿@*@model List<Inventario.Models.Bienes>*@
-@model List<Inventario.Models.Bienes>
+﻿@using Inventario.Models
+@using Inventario.ViewModels
+
+@model Inventario.ViewModels.DarBajaViewModel
 @{
     ViewBag.Title = "Dar de Baja";
     Layout = "~/Views/Shared/LayoutPage.cshtml";
 }
 
 <h2 class="text-center titulo">Dar de baja bienes</h2>
-<h3>Busque los objetos a dar de baja</h3>
-@using (Html.BeginForm("BuscarDarBaja","Bienes"))
-{
-    @Html.AntiForgeryToken()
-   
-    @Html.ValidationSummary()
-    <div class="form-group">
-        <h3>Digite numero de patrimonio</h3>
-        <div class="col-md-offset-2 col-md-10">
-            <input type="text" name="id">
-        </div>
-        <input type="submit" value="Buscar" />
-    </div>
-}
 
-<h3>Bienes a dar de baja:</h3>
-<div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Numero de patrimonio</th>
-                <th>Codigo de Barras</th>
-                <th>Descripcion</th>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Serie</th>
-                <th>Ubicacion</th>
-                <th>Estado</th>
-                <th>Condicion</th>
-                <th>Numero de factura</th>
-            </tr>
-        </thead>
-        <tbody>
-              
-            @if(Model == null)
+<div class="container-fluid">
+    <div class="row">
+        @*Contenido de la barra de filtrado*@
+        <div class="col">
+            @using (Html.BeginForm("FiltradoBajas", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             {
-                <tr><td align="center" colspan="10">Aun no se han anadido objetos</td></tr>
+                @Html.AntiForgeryToken()
+                <label>Estado</label>
+                @Html.DropDownListFor(model => model.estado, new SelectList(Enum.GetValues(typeof(EstadosVMEnum))))
+                <label class="offset-1">Especialidad</label>
+                @Html.DropDownListFor(model => model.IDEspecialidad, new SelectList(Model.especialidad, "ID", "nombreEspecialidad"), "No Filtrar")
+                <input type="submit" value="Aplicar" class="offset-1" />
+
             }
-            else
-            {
-                @*<tr><td>Se puede tirar el modelo</td></tr>*@
-            foreach (var item in Model)
-            {
-                    <tr>
-                        <td>@Html.DisplayFor(modelItem => item.numeroDePatrimonio)</td>
-                        <td>@Html.DisplayFor(modelItem => item.codigoDeBarras)</td>
-                        <td>@Html.DisplayFor(modelItem => item.descripcion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.marca)</td>
-                        <td>@Html.DisplayFor(modelItem => item.modelo)</td>
-                        <td>@Html.DisplayFor(modelItem => item.serie)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ubicacion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.estado)</td>
-                        <td>@Html.DisplayFor(modelItem => item.condicion)</td>
-                        <td>@Html.DisplayFor(modelItem => item.numeroDeFactura)</td>
-                    </tr>
-                }
-            }  
-        </tbody>
-    </table>
-    @using (Html.BeginForm("DarBaja","Bienes",FormMethod.Post)) {
-        @Html.AntiForgeryToken()
-        <div class="form-actions">
-            <input type="submit" value="Dar de Baja" class="btn-light" /> 
         </div>
-    }
+    </div>
+
+    
+    
+    <div class="row">
+        <table class="table">
+            <thead class="table-secondary border-bottom">
+                <tr>
+                    <td>Número de patrimonio</td>
+                    <td>Código de Barras</td>
+                    <td>Descripción</td>
+                    <td>Marca</td>
+                    <td>Modelo</td>
+                    <td>Serie</td>
+                    <td>Ubicacion</td>
+                    <td>Especialidad</td>
+                    <td>Estado</td>
+                    <td>Numero de Factura</td>
+                    <td>Dar de Baja</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model == null)
+                {
+                    <tr><td align="center" colspan="10">Aun no se han anadido objetos</td></tr>
+                }
+                else
+                {
+                    @*<tr><td>Se puede tirar el modelo</td></tr>*@
+                foreach (Bienes bien in Model.bienes)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => bien.numeroDePatrimonio)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.codigoDeBarras)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.marca)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.modelo)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.serie)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.ubicacion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.Especialidad.nombreEspecialidad)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.estado)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.numeroDeFactura)</td>
+                        <td>@Html.ActionLink("Dar Baja", "ConfirmarBaja", new { id = bien.numeroDePatrimonio })</td>
+
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
 </div>

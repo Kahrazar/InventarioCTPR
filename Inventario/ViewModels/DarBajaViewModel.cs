@@ -9,6 +9,9 @@ namespace Inventario.ViewModels
     public class DarBajaViewModel
     {
         public List<Bienes> bienes { get; set; } 
-        public List<string> darBajas { get; set; }
+        public List<Especialidad> especialidad { get; set; }
+
+        public int IDEspecialidad { get; set; }
+        public EstadosVMEnum estado { get; set; }
     }
 }

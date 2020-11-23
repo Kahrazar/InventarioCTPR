@@ -185,51 +185,68 @@ namespace Inventario.Controllers
             return View(bienes);
         }
 
-        //Acciones para Dar de baja
-        [ValidateAntiForgeryToken]
-        public ActionResult BuscarDarBaja(string id)
-        {  
-            if (id == "")
+
+        // List<Bienes> bienesDarBaja = new List<Bienes>();
+
+       public ActionResult FiltradoBajas(DarBajaViewModel vm, EstadosVMEnum estado)
+        {
+            List<Bienes> bienesFiltrados = repositorio.obtenerBienesActivos();
+            DarBajaViewModel dbvm = new DarBajaViewModel();
+            dbvm.especialidad = repositorio.obtenerEspecialidades();
+            int especialidadaFiltrar = vm.IDEspecialidad;
+        
+            if (vm.IDEspecialidad == 0)
             {
-                return RedirectToAction("DarBaja");
+               
+            
             }
             else
             {
-                Bienes bien = repositorio.buscarBien(id);
-                if (bien == null)
-                {
-                    return HttpNotFound();
-                }
-                else
-                {
-                    tempRepositorio.anadirBienTemp(bien);
-                    List<Bienes>bienesDarBaja= tempRepositorio.extraerData();
-                    return View("DarBaja",bienesDarBaja);
-                }
+                bienesFiltrados = filtro.filtrarEspecialidad(bienesFiltrados, especialidadaFiltrar);
             }
+    
+
+            if ((int)estado == 0)
+            {
+
+            }
+            else
+            {
+                bienesFiltrados = filtro.filtrarEstado(bienesFiltrados, (int)estado);
+            }
+            dbvm.bienes = bienesFiltrados;
+            return View("DarBaja", dbvm);
         }
 
-        // List<Bienes> bienesDarBaja = new List<Bienes>();
+
         [HttpGet]
         public ActionResult DarBaja()
         {
 
-            tempRepositorio.limpiar();
-
-            
-            return View("DarBaja");
+            DarBajaViewModel darbajavm = new DarBajaViewModel();
+            darbajavm.bienes = repositorio.obtenerBienesActivos();
+            darbajavm.especialidad = repositorio.obtenerEspecialidades();
+            return View("DarBaja",darbajavm);
         }
  
 
+        public ActionResult ConfirmarBaja(string id)
+        {
+            Bienes bien = repositorio.buscarBien(id);
+
+            return View(bien);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DarBaja(List<Bienes> bienes)
+        public ActionResult CambiarCondicion(Bienes bien)
         {
-            List<Bienes> lista =  tempRepositorio.extraerData();
-            repositorio.darDeBaja(lista);
-            tempRepositorio.limpiar();
-            return View();
+            bien = repositorio.buscarBien(bien.numeroDePatrimonio);
+            repositorio.darDeBaja(bien);
+
+            return RedirectToAction("DarBaja");
         }
+
 
         // GET: Bienes/Delete/5
         public ActionResult Delete(string id)

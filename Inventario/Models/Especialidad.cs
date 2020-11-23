@@ -13,8 +13,12 @@ namespace Inventario.Models
         //Atributos
         [Key]
         public int ID { get; set; }//Llave Primaria
+
         [StringLength(20)]
+        [RegularExpression(@"\w+", ErrorMessage = "Formato Incorrecto")]
+        [Required(ErrorMessage ="Es Obligatorio poner un nombre")]
         public string nombreEspecialidad { get; set; }
+
         public ICollection<Bienes> Bienes { get; set; }
 
 
