@@ -97,17 +97,17 @@ namespace Inventario.Services
             }
         }
 
-        public void darDeBaja(List<Bienes> bienesM)
+        [HttpPost]
+        public void darDeBaja(Bienes bienesM)
         {
             using (var db = new ApplicationDbContext())
                 try
                 {
-                    foreach (var item in bienesM)
-                    {
-                        item.condicion = CondicionesEnum.DeBaja;
-                        db.Entry(item).State = EntityState.Modified;
+                 
+                        bienesM.condicion = CondicionesEnum.DeBaja;
+                        db.Entry(bienesM).State = EntityState.Modified;
                         db.SaveChanges();
-                    }
+                    
                 }
                 catch (Exception)
                 {

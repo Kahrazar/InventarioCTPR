@@ -7,36 +7,33 @@
 
 <h2 class="text-center titulo">Editar Especialidad</h2>
 
+<div class="container">
+    @using (Html.BeginForm("EditarEspecialidad", "Especialidad", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("EditarEspecialidad","Especialidad",FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+        <div class="form-horizontal">
 
-        <div class="form-group">
-            <label class = "control-label col-md-2" >Nombre de la Especialidad</label> 
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.nombreEspecialidad, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.nombreEspecialidad, "", new { @class = "text-danger" })
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+
+            <div class="form-group">
+                <label  for="" class="control-label ">Nombre de la Especialidad</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.nombreEspecialidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.nombreEspecialidad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col offset-6">
+                    <input type="submit" value="Guardar" class="btn btn-outline-secondary" />
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
-            </div>
-        </div>
+    }
+    <div>
+        @Html.ActionLink("Volver", "VerEspecialidades")
     </div>
-}
-<div>
-    @Html.ActionLink("Volver", "VerEspecialidades")
 </div>
-
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
