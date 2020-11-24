@@ -10,8 +10,24 @@
 <h2 class="text-center titulo">Dar de baja bienes</h2>
 
 <div class="container-fluid">
+    
+    <div class="form-row">
+        <div class="col">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p class="d-none text-danger align-self-start" id="Validar">*Formato Invalido</p>
+        </div>
+    </div>
     <div class="row">
         @*Contenido de la barra de filtrado*@
+        <div class="col">
+            @using (Html.BeginForm("BuscarDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <label class="mr-1">Buscar Bien:</label>
+                @Html.EditorFor(m => m.numeroDePatrimonio, new { htmlAttributes = new { @class = "form-control mr-1", maxlength = 10 } })
+                <input type="submit" class="btn btn-outline-secondary" id="buscar" value="buscar"/>
+            }
+        </div>
         <div class="col">
             @using (Html.BeginForm("FiltradoBajas", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             {
@@ -20,14 +36,23 @@
                 @Html.DropDownListFor(model => model.estado, new SelectList(Enum.GetValues(typeof(EstadosVMEnum))))
                 <label class="offset-1">Especialidad</label>
                 @Html.DropDownListFor(model => model.IDEspecialidad, new SelectList(Model.especialidad, "ID", "nombreEspecialidad"), "No Filtrar")
-                <input type="submit" value="Aplicar" class="offset-1" />
+                <input type="submit" value="Aplicar" class="offset-1 btn btn-outline-secondary" />
 
             }
         </div>
-    </div>
+        <div class="col">
+            @using (Html.BeginForm("RestablecerListaDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Reestablecer" class="btn btn-outline-secondary" />
+                
+            }
+        </div>
+
 
     
-    
+    </div>
+    <hr />    
     <div class="row">
         <table class="table">
             <thead class="table-secondary border-bottom">
@@ -75,4 +100,5 @@
             </tbody>
         </table>
     </div>
+    <script src="~/Scripts/validar.js"></script>
 </div>

@@ -17,8 +17,7 @@ namespace Inventario.Controllers
         //Objetos de uso
         private Filtrador filtro = new Filtrador();
         private ApplicationDbContext db = new ApplicationDbContext();
-        private BienesRepository repositorio = new BienesRepository();//Objeto que proporcionara los datos provenientes de la BD
-        private TempRepository tempRepositorio = new TempRepository();
+        private BienesRepository repositorio = new BienesRepository();//Objeto que proporcionara los datos provenientes de la Bd
         private ViewModelMaper maper = new ViewModelMaper();
         private EspecialidadRepository repoEspecialidad = new EspecialidadRepository();
        
@@ -185,8 +184,56 @@ namespace Inventario.Controllers
             return View(bienes);
         }
 
+        //Acciones para las vistas darbaja
+        public ActionResult RestablecerListaDarBaja()
+        {
+            DarBajaViewModel bienEncontrado = new DarBajaViewModel();
+            bienEncontrado.especialidad = repositorio.obtenerEspecialidades();
+            bienEncontrado.bienes = repositorio.obtenerBienesActivos();
+            return View("DarBaja",bienEncontrado);
+        }
 
-        // List<Bienes> bienesDarBaja = new List<Bienes>();
+
+        public ActionResult BuscarDarbaja(DarBajaViewModel vm)
+        {
+            DarBajaViewModel bienEncontrado = new DarBajaViewModel();
+            bienEncontrado.especialidad = repositorio.obtenerEspecialidades();
+
+            if (vm.numeroDePatrimonio == null)
+            {
+                ModelState.AddModelError("", "Debes Llenar este campo");
+                bienEncontrado.bienes = repositorio.obtenerBienesActivos();
+                return View("DarBaja", bienEncontrado);
+            }
+            else
+            {
+                Bienes bien = repositorio.buscarBien(vm.numeroDePatrimonio);
+                if (bien == null)
+                {
+               
+                    bienEncontrado.bienes = repositorio.obtenerBienesActivos();
+                    ModelState.AddModelError("", "Bien no encontrado");
+                    return View("DarBaja", bienEncontrado);
+                }
+                else
+                {
+                    if ((int)bien.condicion == 1 )
+                    {
+                        bienEncontrado.bienes = repositorio.obtenerBienesActivos();
+                        ModelState.AddModelError("", "Ese bien ya esta de baja");
+                        return View("DarBaja", bienEncontrado);
+                    }
+                    else
+                    {
+                        List<Bienes> bienesl = new List<Bienes>();
+                        bienesl.Add(bien);
+
+                        bienEncontrado.bienes = bienesl;
+                        return View("DarBaja", bienEncontrado);
+                    }
+                }
+            }
+        }
 
        public ActionResult FiltradoBajas(DarBajaViewModel vm, EstadosVMEnum estado)
         {

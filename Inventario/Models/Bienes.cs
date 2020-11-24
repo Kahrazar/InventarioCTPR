@@ -10,23 +10,26 @@ namespace Inventario.Models
     public class Bienes
     {
         //Atributos
-        [Key][Required(ErrorMessage ="Campo Obligatorio")]
+        [Key] [Required(ErrorMessage = "Campo Obligatorio")]
         [RegularExpression(@"([A-Z]{3}\d{3})|(\d+)", ErrorMessage = "No puede contener espacios ni simbolos.")]
         public string numeroDePatrimonio { get; set; }//llave primaria
 
 
         [Required(ErrorMessage = "Campo Obligatorio")]
         [RegularExpression(@"\d{8,10}", ErrorMessage = "Formato Incorrecto")]
-        public string codigoDeBarras { get;  set; }
+        public string codigoDeBarras { get; set; }
 
         [StringLength(30)]
         public string descripcion { get; set; }
-       
+
         public string anadidoPor { get; set; }//Llave foranea
 
-        [RegularExpression(@"\d{8,10}",ErrorMessage = "Solo puedes digitar numeros")]
+        [RegularExpression(@"\d+", ErrorMessage = "Solo puedes digitar numeros")]
+        [MaxLength(20)]
         [Required(ErrorMessage = "Campo Obligatorio")]
-        public string numeroDeFactura { get;  set; }//llave foranea
+        [ForeignKey("")]
+        public string numeroDeFactura { get; set; }//llave foranea
+        public virtual Factura Factura{get;set;}
 
         [RegularExpression(@"\d{4,6}",ErrorMessage ="Formato Invalido")]
         public string ley { get; set; }
@@ -44,9 +47,6 @@ namespace Inventario.Models
      
         [ForeignKey("Especialidad")]
         public int IDEspecialidad { get; set; }
-
-        //LlaveForanea
-     
         public virtual Especialidad Especialidad { get; set; }
 
         [StringLength(3)]
