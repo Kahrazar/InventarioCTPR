@@ -27,7 +27,7 @@ namespace Inventario.Models
         [RegularExpression(@"\d+", ErrorMessage = "Solo puedes digitar numeros")]
         [MaxLength(20)]
         [Required(ErrorMessage = "Campo Obligatorio")]
-        [ForeignKey("")]
+        [ForeignKey("Factura")]
         public string numeroDeFactura { get; set; }//llave foranea
         public virtual Factura Factura{get;set;}
 

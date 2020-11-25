@@ -12,14 +12,13 @@
     @*Cabecera de la pagina, aqui va la barra de filtrado y la barra de buscada mas los botones*@
     
     <p class="d-none text-danger align-self-start" id="Validar">*Formato Invalido</p>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-row">
         @*Barra de busqueda*@
         <div class="col form-group">
             @using (Html.BeginForm("BuscarVerBienes", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             { 
                         @Html.AntiForgeryToken()   
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        
                         <label class="mr-1">Buscar Bien:</label>
                         @Html.EditorFor(m => m.numeroDePatrimonio, new { htmlAttributes = new {@class="form-control mr-1" ,maxlength = 10 } })
                         <input type="submit" class="btn btn-outline-secondary" id="buscar" value="buscar" class="" />
@@ -101,7 +100,7 @@
                                 <td>@Html.DisplayFor(modelItem => bien.Especialidad.nombreEspecialidad)</td>
                                 <td>@Html.DisplayFor(modelItem => bien.estado)</td>
                                 <td>@Html.DisplayFor(modelItem => bien.condicion)</td>
-                                <td>@Html.DisplayFor(modelItem => bien.numeroDeFactura)</td>
+                                <td>@Html.ActionLink(bien.numeroDeFactura, "Details","Facturas", new { id = bien.numeroDeFactura }, new { target = "_blank" })</td>
                                 <td>@Html.DisplayFor(modelItem => bien.anadidoPor)</td>
                             </tr>
                         }

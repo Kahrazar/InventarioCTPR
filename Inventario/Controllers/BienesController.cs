@@ -20,7 +20,8 @@ namespace Inventario.Controllers
         private BienesRepository repositorio = new BienesRepository();//Objeto que proporcionara los datos provenientes de la Bd
         private ViewModelMaper maper = new ViewModelMaper();
         private EspecialidadRepository repoEspecialidad = new EspecialidadRepository();
-       
+        private FacturasRepository factuRepositorio = new FacturasRepository();
+
         //Acciones para la vista ver bienes
         [HttpPost]
         [ValidateAntiForgeryToken]

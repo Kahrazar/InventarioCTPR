@@ -267,6 +267,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BienesController.cs" />
     <Compile Include="Controllers\EspecialidadController.cs" />
+    <Compile Include="Controllers\FacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
@@ -285,6 +286,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BienesRepository.cs" />
     <Compile Include="Services\EspecialidadRepository.cs" />
+    <Compile Include="Services\FacturasRepository.cs" />
     <Compile Include="Services\Filtrador.cs" />
     <Compile Include="Services\TempRepository.cs" />
     <Compile Include="Services\ViewModelMaper.cs" />
@@ -311,6 +313,9 @@
     <Content Include="Views\Login\EliminarUsuario.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Bienes\ConfirmarBaja.cshtml" />
+    <Content Include="Views\Facturas\AgregarFactura.cshtml" />
+    <Content Include="Views\Facturas\Details.cshtml" />
+    <Content Include="Views\Facturas\VerFacturas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -319,7 +324,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
