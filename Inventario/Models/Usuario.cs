@@ -26,7 +26,7 @@ namespace Inventario.Models
 
             [Display(Name = "Nivel de privilegio")]
             [Required(ErrorMessage = "Rol de usuario es requerido.")]
-            public string NivelDePrivilegio { get; set; }
+            public PrivilegiosEnum privilegio { get; set; }
 
         }
 
