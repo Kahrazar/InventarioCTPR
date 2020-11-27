@@ -34,7 +34,7 @@ namespace Inventario.Models
         [RegularExpression(@"\d{4,6}",ErrorMessage ="Formato Invalido")]
         public string ley { get; set; }
 
-        [RegularExpression(@"[A-Za-z0-9]+",ErrorMessage= "Formati Invalido ")]
+        [RegularExpression(@"[A-Za-z0-9]+",ErrorMessage= "Formato Invalido ")]
         [StringLength(10)]
         public string marca { get; set; }
 

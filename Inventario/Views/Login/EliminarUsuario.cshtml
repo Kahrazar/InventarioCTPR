@@ -5,53 +5,58 @@
     Layout = "~/Views/Shared/LayoutPage.cshtml";
 }
 
-<h2 class="text-center titulo">Eliminar usuario</h2>
-
-<h3 class="text-center">Deseas Eliminar este usuario?</h3>
 <div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Cedula)
-        </dt>
+    <h2 class="text-center titulo">Eliminar usuario</h2>
+    <h3 class="text-center">Deseas Eliminar este usuario?</h3>
 
-        <dd>
-            @Html.DisplayFor(model => model.Cedula)
-        </dd>
+    <div class="offset-2 container" border="5px">
+        <dl class="dl-horizontal" border="5px">
+            <dt class="offset-5">
+                @Html.DisplayNameFor(model => model.Cedula)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
+            <dd class="offset-5">
+                @Html.DisplayFor(model => model.Cedula)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
+            <dt class="offset-5">
+                @Html.DisplayNameFor(model => model.Nombre)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contraseña)
-        </dt>
+            <dd class="offset-5">
+                @Html.DisplayFor(model => model.Nombre)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contraseña)
-        </dd>
+            <dt class="offset-5">
+                @Html.DisplayNameFor(model => model.Contraseña)
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NivelDePrivilegio)
-        </dt>
+            <dd class="offset-5">
+                @Html.DisplayFor(model => model.Contraseña)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NivelDePrivilegio)
-        </dd>
+            <dt class="offset-5">
+                @Html.DisplayNameFor(model => model.privilegio)
+            </dt>
 
-    </dl>
+            <dd class="offset-5">
+                @Html.DisplayFor(model => model.privilegio)
+            </dd>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+        </dl>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Eliminar Usuario" class="btn btn-default" />
+            <div class="form-actions no-color offset-5">
+                <input type="submit" value="Eliminar Usuario" class="btn btn-outline-secondary" />
+            </div>
+        }
+        <div class="offset-1">
+            @Html.ActionLink("Volver", "AccountManage", "Login")
         </div>
-    }
-    @Html.ActionLink("Volver", "AccountManage", "Login")
+
+    </div>
+
 </div>
+

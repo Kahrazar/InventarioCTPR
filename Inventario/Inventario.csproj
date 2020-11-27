@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -247,6 +248,7 @@
     <Content Include="Scripts\validar.js" />
     <Content Include="Scripts\validaranadir.js" />
     <Content Include="Scripts\validarEditar.js" />
+    <Content Include="Scripts\ValidarUsuario.js" />
     <Content Include="Styles\layoutStyles.css" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -317,6 +319,7 @@
     <Content Include="Views\Facturas\AgregarFactura.cshtml" />
     <Content Include="Views\Facturas\Details.cshtml" />
     <Content Include="Views\Facturas\VerFacturas.cshtml" />
+    <Content Include="Views\Shared\LoginLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
