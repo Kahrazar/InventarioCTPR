@@ -10,18 +10,14 @@ using System.Web.Mvc;
 
 namespace Inventario.Controllers
 {
+
     public class LoginController : Controller
     {
-
-        // private UsuariosRepo UR = new UsuariosRepo();
-        //pr ApplicationDbContext db = new ApplicationDbContext();
+        private UsuarioRepository userRepo= new UsuarioRepository();
 
         public ActionResult AccountManage()
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
-            {
-                return View(db.Usuarios.ToList());
-            }
+            return View(userRepo.ObtenerUsuarios());
         }
 
         [HttpGet]
@@ -36,13 +32,13 @@ namespace Inventario.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (ApplicationDbContext db = new ApplicationDbContext())
-                {
-                    db.Usuarios.Add(cuenta);
-                    db.SaveChanges();
-                }
+                userRepo.RegistrarUsuario(cuenta);
                 ModelState.Clear();
                 ViewBag.Message = "Usuario: " + cuenta.Nombre + " registrado correctamente.";
+            }
+            else
+            {
+                ModelState.AddModelError("","Datos incorrectos");
             }
             return View();
         }
@@ -56,32 +52,16 @@ namespace Inventario.Controllers
 
         //Metodo que comprueba los datos para iniciar sesion en el inventario
         [HttpPost]
-        public ActionResult Login(Usuario user)
+        public ActionResult Login(Usuario usuarioTempo)
         {
-            using (ApplicationDbContext db = new ApplicationDbContext())
+            Usuario usr = new Usuario();
+            usr = userRepo.AutenticarUsuario(usuarioTempo.Cedula,usuarioTempo.Contraseña);
+            if (usr != null)
             {
-                try
-                {
-                    //Comprueba que la cedula y contraseña ingresados coincidan con los de la Base de Datos
-                    var usr = db.Usuarios.FirstOrDefault(u => u.Cedula == user.Cedula && u.Contraseña == user.Contraseña);
-                    if (usr != null)//Si la cedula y contraseña coiciden, entra a la pagina de inicio
-                    {
-                        Session["idCedula"] = usr.Cedula.ToString();
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else//De lo contrario indica que son incorrectos
-                    {
-                        ModelState.AddModelError("", "Numero de cedula y/o contraseña incorrectas");
-                    }
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
-
+                return RedirectToAction("Index", "Home", usr);
             }
-            return View();
+            ModelState.AddModelError("", "Usuario incorrecto");
+            return View("Login");         
         }
 
         /*Metodo para comprobar si se inicio sesion
@@ -100,22 +80,19 @@ namespace Inventario.Controllers
         //Metodos para Editar Usuarios
         [HttpGet]
         public ActionResult EditarUsuario(int? id)
-        {
+        {           
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             else
             {
-                using (ApplicationDbContext db = new ApplicationDbContext())
+                Usuario user = userRepo.BuscarUsuario(id);
+                if (user == null)
                 {
-                    Usuario user = db.Usuarios.Find(id);
-                    if (user == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(user);
-                }
+                    return HttpNotFound();
+                }                   
+                return View(user);
             }
         }
 
@@ -125,18 +102,8 @@ namespace Inventario.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new ApplicationDbContext())
-                    try
-                    {
-                        db.Entry(user).State = EntityState.Modified;
-                        db.SaveChanges();
-                        return RedirectToAction("AccountManage");
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
+                userRepo.EditarUsuario(user);
+                return RedirectToAction("AccountManage");
             }else
             {
                 ModelState.AddModelError("","Datos Invalidos");
@@ -153,16 +120,14 @@ namespace Inventario.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             else
-            {
-                using (ApplicationDbContext db = new ApplicationDbContext())
+            { 
+                Usuario user = userRepo.BuscarUsuario(id);
+                if (user == null)
                 {
-                    Usuario user = db.Usuarios.Find(id);
-                    if (user == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return View(user);
+                    return HttpNotFound();
                 }
+                return View(user);
+              
             }
         }
 
@@ -170,19 +135,8 @@ namespace Inventario.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EliminarUsuario(int id )
         {
-            using (var db = new ApplicationDbContext())
-                try
-                {
-                    Usuario user = db.Usuarios.Find(id);
-                    db.Usuarios.Remove(user);
-                    db.SaveChanges();
-                    return RedirectToAction("AccountManage");
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+            userRepo.EliminarUsuario(id);
+            return RedirectToAction("AccountManage");
         }
     }
 }

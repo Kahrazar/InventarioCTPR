@@ -8,7 +8,7 @@
 <h2 class="text-center titulo">Iniciar sesion</h2>
 
 <div class="container">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -29,8 +29,8 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="offset-5 col-3 form-group">
-                    <input type="submit" value="Iniciar sesion" class="btn btn-outline-secondary" />
+                <div class="offset-5 col-2 form-group">
+                    <input type="submit" value="Iniciar sesion" class="col 2 btn btn-outline-secondary" />
                 </div>
             </div>
         </div>

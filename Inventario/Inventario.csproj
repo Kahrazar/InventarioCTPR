@@ -292,6 +292,7 @@
     <Compile Include="Services\FacturasRepository.cs" />
     <Compile Include="Services\Filtrador.cs" />
     <Compile Include="Services\TempRepository.cs" />
+    <Compile Include="Services\UsuarioRepository.cs" />
     <Compile Include="Services\ViewModelMaper.cs" />
     <Compile Include="System\Windows\Forms.cs" />
     <Compile Include="ViewModels\DarBajaViewModel.cs" />

@@ -9,8 +9,7 @@ namespace Inventario.Models
    
         public class Usuario
         {
-
-            [Key]
+        [Key]
             public int UserID { get; set; }
 
             [Display(Name = "Numero de cedula")]
