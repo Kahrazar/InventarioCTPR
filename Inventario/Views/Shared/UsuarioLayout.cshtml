@@ -1,29 +1,41 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>LoginLayout</title>
+    <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/Content/bootstrap.css" />
-    <link rel="shortcut icon" href="/imgs/cole.png" />
     <link rel="stylesheet" href="~/Styles/layoutStyles.css" />
+
 </head>
 <body>
     @*Inicio de contenido*@
 
     @*Cabecera de la pagina*@
 
-    <div class="container">
-        <header class="form-row">
-            <div class="col-lg-11 form-group">              
-                <h2>Inventario Colegio Tecnico Profesional Regional de San carlos</h2>              
+    <div class="container-fluid">
+        <header class="row">
+            <div class="col-xl-8 float">
+                <h1 class="text-right">Inventario Colegio Tecnico Profesional Regional de San carlos</h1>
             </div>
-            <div class="col-1 form-group">
+            <div class="col-xl-2">
                 <img src="~/imgs/cole.png" style="width: 70px" />
             </div>
         </header>
     </div>
-        @RenderBody()
+
+    @*Barra de navegacion*@
+    <div class="container-fluid">
+        <ul class="nav nav-justified bgNaranja">
+            <li class="nav-item">@Html.ActionLink("Inicio", "IndexUsuario", "Home", null, new { @class = "nav-link text-dark" })</li>
+            <li class="nav-item">@Html.ActionLink("Ver Bienes", "UsuarioVerBienes", "Bienes", null, new { @class = "nav-link text-dark" })</li>
+            <li class="nav-item">@Html.ActionLink("Cerrar sesion", "Login", "Login", null, new { @class = "nav-link text-dark" })</li>
+        </ul>
+    </div>
+
+    @*Contenido de otras vistas*@
+
+    @RenderBody()
+
 
     @*Scripts de Bootstrap*@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

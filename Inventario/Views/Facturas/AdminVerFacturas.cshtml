@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Ver Facturas";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2 class="text-center titulo" >Ver Facturas</h2>
@@ -10,7 +10,7 @@
   <div class="row ">
       <div class="col">
           <p>
-              @Html.ActionLink("Agregar Factura", "AgregarFactura")
+              @Html.ActionLink("Agregar Factura", "AdminAgregarFactura")
           </p>
       </div>
   </div>
@@ -30,7 +30,7 @@
                           @Html.DisplayFor(modelItem => item.numeroDeFactura)
                       </td>
                       <td>
-                         @Html.ActionLink("Detalles", "Details","Facturas",new { id = item.numeroDeFactura}, new { target = "_blank"})
+                         @Html.ActionLink("Detalles", "AdminDetails","Facturas",new { id = item.numeroDeFactura}, new { target = "_blank"})
                       </td>
                   </tr>
               }

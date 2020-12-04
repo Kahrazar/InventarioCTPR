@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<Inventario.Models.Usuario>
 
-@{ ViewBag.Title = "Administración de usuarios";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+@{    ViewBag.Title = "Administración de usuarios";
+      Layout = "~/Views/Shared/SuperadminLayout.cshtml";
 }
 
-<h2 class="text-center titulo">Administrar Usuarios</h2>
+<h2 class="text-center titulo" >Administrar Usuarios</h2>
 
 <p>
     @Html.ActionLink("Agregar Usuario", "Register")
 </p>
 <table class="table">
-    <thead class="table-secondary border-bottom">
-        <tr>
-            <td>Cedula </td>
-            <td>Nombre</td>
-            <td>Contraseña</td>
-            <td>Nivel de privilegio</td>
-            <td>Administrar</td>
-        </tr>
-    </thead>
+   <thead class="table-secondary border-bottom">
+       <tr>
+           <td>Cedula </td>
+           <td>Nombre</td>
+           <td>Contraseña</td>
+           <td>Nivel de privilegio</td>
+           <td>Administrar</td> 
+       </tr>
+   </thead>
     <tbody>
         @foreach (var item in Model)
         {
@@ -43,4 +43,3 @@
         }
     </tbody>
 </table>
-

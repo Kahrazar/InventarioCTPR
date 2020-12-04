@@ -3,7 +3,7 @@
 @model Inventario.ViewModels.VerBienesViewModel
 @{
     ViewBag.Title = "Ver Bienes";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/UsuarioLayout.cshtml";
 }
 
 <h2 class="text-center titulo">Ver Bienes</h2>
@@ -16,7 +16,7 @@
     <div class="form-row">
         @*Barra de busqueda*@
         <div class="col form-group">
-            @using (Html.BeginForm("BuscarVerBienes", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            @using (Html.BeginForm("UsuarioBuscarVerBienes", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             { 
                         @Html.AntiForgeryToken()   
                         <label class="mr-1">Buscar Bien:</label>
@@ -27,7 +27,7 @@
         @*Menu de filtrado*@
         <div class="col-sm-6 border-left border-right" >
             @*Contenido de la barra de filtrado*@
-            @using (Html.BeginForm("Filtrado", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            @using (Html.BeginForm("UsuarioFiltrado", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             {
                 @Html.AntiForgeryToken()
                 <label class="mr-1" >Estado</label>
@@ -48,7 +48,7 @@
             }
         </div>
             <div class="col-sm-2">
-                @using (Html.BeginForm("RestablecerLista", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+                @using (Html.BeginForm("UsuarioRestablecerLista", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
                 {
                    
                         <input type="submit" value="Reestablecer" class="btn btn-outline-secondary" />
@@ -100,7 +100,7 @@
                                 <td>@Html.DisplayFor(modelItem => bien.Especialidad.nombreEspecialidad)</td>
                                 <td>@Html.DisplayFor(modelItem => bien.estado)</td>
                                 <td>@Html.DisplayFor(modelItem => bien.condicion)</td>
-                                <td>@Html.ActionLink(bien.numeroDeFactura, "Details","Facturas", new { id = bien.numeroDeFactura }, new { target = "_blank" })</td>
+                                <td>@Html.ActionLink(bien.numeroDeFactura, "UsuarioDetails", "Facturas", new { id = bien.numeroDeFactura }, new { target = "_blank" })</td>
                                 <td>@Html.DisplayFor(modelItem => bien.anadidoPor)</td>
                             </tr>
                         }

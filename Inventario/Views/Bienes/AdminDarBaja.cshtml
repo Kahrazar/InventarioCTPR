@@ -4,7 +4,7 @@
 @model Inventario.ViewModels.DarBajaViewModel
 @{
     ViewBag.Title = "Dar de Baja";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2 class="text-center titulo">Dar de baja bienes</h2>
@@ -20,7 +20,7 @@
     <div class="row">
         @*Contenido de la barra de filtrado*@
         <div class="col">
-            @using (Html.BeginForm("BuscarDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            @using (Html.BeginForm("AdminBuscarDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             {
                 @Html.AntiForgeryToken()
                 <label class="mr-1">Buscar Bien:</label>
@@ -29,7 +29,7 @@
             }
         </div>
         <div class="col">
-            @using (Html.BeginForm("FiltradoBajas", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            @using (Html.BeginForm("AdminFiltradoBajas", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             {
                 @Html.AntiForgeryToken()
                 <label>Estado</label>
@@ -41,7 +41,7 @@
             }
         </div>
         <div class="col">
-            @using (Html.BeginForm("RestablecerListaDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            @using (Html.BeginForm("AdminRestablecerListaDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
             {
                 @Html.AntiForgeryToken()
                 <input type="submit" value="Reestablecer" class="btn btn-outline-secondary" />
@@ -92,7 +92,7 @@
                         <td>@Html.DisplayFor(modelItem => bien.Especialidad.nombreEspecialidad)</td>
                         <td>@Html.DisplayFor(modelItem => bien.estado)</td>
                         <td>@Html.DisplayFor(modelItem => bien.numeroDeFactura)</td>
-                        <td>@Html.ActionLink("Dar Baja", "ConfirmarBaja", new { id = bien.numeroDePatrimonio })</td>
+                        <td>@Html.ActionLink("Dar Baja", "AdminConfirmarBaja", new { id = bien.numeroDePatrimonio })</td>
 
                     </tr>
                     }

@@ -4,12 +4,12 @@
 @model Inventario.Models.Bienes
 @{
     ViewBag.Title = "Anadir Bienes";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
    <h2 class="text-center titulo">AnadirBienes</h2>
 
 <div class="container">
-    @using (Html.BeginForm("AnadirBienes", "Bienes", FormMethod.Post, new { id = "formulario" }))
+    @using (Html.BeginForm("AdminAnadirBienes", "Bienes", FormMethod.Post, new { id = "formulario" }))
     {
         @Html.AntiForgeryToken()
        
@@ -113,6 +113,6 @@
     }
     <script src="~/Scripts/validaranadir.js"></script>
     <div>
-        @Html.ActionLink("Ver Bienes", "VerBienes")
+        @Html.ActionLink("Ver Bienes", "AdminVerBienes")
     </div>
 </div>

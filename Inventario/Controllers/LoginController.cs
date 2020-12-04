@@ -13,13 +13,19 @@ namespace Inventario.Controllers
 
     public class LoginController : Controller
     {
+        //Objetos en uso
         private UsuarioRepository userRepo= new UsuarioRepository();
+
+
+        //******************************************************//
+        //*************ACTIONS DE SUPERADMIN VIEWS**************//
 
         public ActionResult AccountManage()
         {
             return View(userRepo.ObtenerUsuarios());
         }
 
+        //Metodo para registrar usuarios
         [HttpGet]
         public ActionResult Register()
         {
@@ -58,25 +64,24 @@ namespace Inventario.Controllers
             usr = userRepo.AutenticarUsuario(usuarioTempo.Cedula,usuarioTempo.Contraseña);
             if (usr != null)
             {
-                return RedirectToAction("Index", "Home", usr);
+                Session["Nombre"] = usr.Nombre;
+                switch (usr.privilegio)
+                {
+                    case PrivilegiosEnum.usuario:
+                        return RedirectToAction("IndexUsuario", "Home", usr);
+                        
+                    case PrivilegiosEnum.admin:
+                        return RedirectToAction("IndexAdmin", "Home", usr);
+
+                    case PrivilegiosEnum.superadmin:
+                        return RedirectToAction("IndexSuperadmin", "Home", usr);
+                        
+                }                
             }
             ModelState.AddModelError("", "Usuario incorrecto");
             return View("Login");         
         }
 
-        /*Metodo para comprobar si se inicio sesion
-        public ActionResult LoggedIn()
-        {
-            if (Session["idCedula"] != null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }*/
-       
         //Metodos para Editar Usuarios
         [HttpGet]
         public ActionResult EditarUsuario(int? id)

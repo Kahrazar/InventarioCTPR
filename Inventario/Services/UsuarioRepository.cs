@@ -13,14 +13,17 @@ namespace Inventario.Services
 {
     public class UsuarioRepository
     {
+        
+
         public Usuario AutenticarUsuario(String ced, String con)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
+              
             {
                 try//Comprueba que la cedula y contraseña ingresados coincidan con los de la Base de Datos
                 {
                     db.Configuration.LazyLoadingEnabled = false;
-                    Usuario usr = db.Usuarios                  
+                    Usuario usr = db.Usuarios
                     .Where(a => a.Cedula == ced && a.Contraseña == con)
                     .FirstOrDefault();
                     return usr;

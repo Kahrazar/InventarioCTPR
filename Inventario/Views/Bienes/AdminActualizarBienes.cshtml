@@ -2,14 +2,14 @@
 @using Inventario.Models
 @{
     ViewBag.Title = "Actualizar Bienes";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2 class="text-center titulo">ActualizarBienes</h2>
 
 <div class="container">
     <p id="Validar" class="d-none text-danger">*Digita Correctamente los datos</p>
-    @using (Html.BeginForm("BuscarBien", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+    @using (Html.BeginForm("AdminBuscarBien", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
     {
         @Html.AntiForgeryToken()
         <div class="row ">
@@ -21,7 +21,7 @@
         </div>   
     }
            
-    @using (Html.BeginForm("ActualizarBienes", "Bienes", FormMethod.Post))
+    @using (Html.BeginForm("AdminActualizarBienes", "Bienes", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         <div class="form-horizontal">
@@ -106,6 +106,6 @@
     }
     <script src="~/Scripts/validarEditar.js"></script>
     <div>
-        @Html.ActionLink("Volver", "VerBienes")
+        @Html.ActionLink("Volver", "AdminVerBienes")
     </div>
 </div>

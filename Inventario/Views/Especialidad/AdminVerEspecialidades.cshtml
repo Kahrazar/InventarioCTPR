@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "Administrar Especialidades";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2 class="text-center titulo">Administrar Especialidades</h2>
 
 <p>
-    @Html.ActionLink("Agregar Especialidad", "AgregarEspecialidad")
+    @Html.ActionLink("Agregar Especialidad", "AdminAgregarEspecialidad")
 </p>
 <table class="table">
     <thead class="table-secondary border-bottom">
@@ -32,8 +32,8 @@
                     }
                     else
                     {
-                    @Html.ActionLink("Editar", "EditarEspecialidad", new { id = item.ID })<span class="d-inline">|</span>
-                    @Html.ActionLink("Eliminar", "EliminarEspecialidad", new { id = item.ID })
+                    @Html.ActionLink("Editar", "AdminEditarEspecialidad", new { id = item.ID })<span class="d-inline">|</span>
+                    @Html.ActionLink("Eliminar", "AdminEliminarEspecialidad", new { id = item.ID })
                     } 
                 </td>
             </tr>

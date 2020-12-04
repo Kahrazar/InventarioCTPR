@@ -1,0 +1,32 @@
+﻿@model Inventario.Models.Usuario
+
+@{
+    ViewBag.Title = "Pagina Principal";
+    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="col border" >
+            Bienvenido, @HttpContext.Current.Session["Nombre"].ToString()
+        </div>
+        <div class="col border">
+            
+        </div>
+        <div class="col border">
+            @Html.ActionLink("Cerrar sesion", "Login", "Login", null, new { @class = "nav-link text-dark" })
+        </div>
+
+    </div>
+    <div class="row">
+        <h2>
+            Pagina de Inicio
+        </h2>
+    </div>
+    <div class="row">
+
+    </div>
+</div>
+   
+

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Confirmar Baja";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2 class="titulo text-center" >Confirmar Baja</h2>
@@ -52,7 +52,7 @@
      
     </div>
     <div class="row">
-        @using (Html.BeginForm("CambiarCondicion","Bienes",FormMethod.Post))
+        @using (Html.BeginForm("AdminCambiarCondicion", "Bienes",FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             
@@ -62,6 +62,6 @@
                 <input type="submit" value="Confirmar" class="btn btn-default" /> |
             </div>
         }
-        @Html.ActionLink("Volver", "DarBaja", "Bienes", FormMethod.Post)
+        @Html.ActionLink("Volver", "AdminDarBaja", "Bienes", FormMethod.Post)
     </div>  
 </div>

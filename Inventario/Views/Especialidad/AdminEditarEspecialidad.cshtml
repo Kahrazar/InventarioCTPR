@@ -2,13 +2,13 @@
 
 @{
     ViewBag.Title = "EditarEspecialidad";
-    Layout = "~/Views/Shared/SuperadminLayout.cshtml";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
 }
 
 <h2 class="text-center titulo">Editar Especialidad</h2>
 
 <div class="container">
-    @using (Html.BeginForm("EditarEspecialidad", "Especialidad", FormMethod.Post))
+    @using (Html.BeginForm("AdminEditarEspecialidad", "Especialidad", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -34,6 +34,6 @@
         </div>
     }
     <div>
-        @Html.ActionLink("Volver", "VerEspecialidades")
+        @Html.ActionLink("Volver", "AdminVerEspecialidades")
     </div>
 </div>

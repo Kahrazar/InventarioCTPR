@@ -56,6 +56,12 @@
     <Reference Include="EntityFramework6.Npgsql, Version=6.4.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework6.Npgsql.6.4.1\lib\net461\EntityFramework6.Npgsql.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -261,8 +267,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Shared\LayoutPage.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\SuperadminLayout.cshtml" />
     <Content Include="Views\Bienes\AnadirBienes.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -311,7 +316,7 @@
     <Content Include="Views\Especialidad\AgregarEspecialidad.cshtml" />
     <Content Include="Views\Especialidad\EditarEspecialidad.cshtml" />
     <Content Include="Views\Especialidad\EliminarEspecialidad.cshtml" />
-    <Content Include="Views\Login\AccountManage.cshtml" />
+    <Content Include="Views\Facturas\AccountManage.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Views\Login\EditarUsuario.cshtml" />
     <Content Include="Views\Login\EliminarUsuario.cshtml" />
@@ -321,6 +326,29 @@
     <Content Include="Views\Facturas\Details.cshtml" />
     <Content Include="Views\Facturas\VerFacturas.cshtml" />
     <Content Include="Views\Shared\LoginLayout.cshtml" />
+    <Content Include="Views\Home\IndexSuperadmin.cshtml" />
+    <Content Include="Views\Home\IndexAdmin.cshtml" />
+    <Content Include="Views\Home\IndexUsuario.cshtml" />
+    <Content Include="Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Views\Shared\UsuarioLayout.cshtml" />
+    <Content Include="Views\Facturas\AdminAgregarFactura.cshtml" />
+    <Content Include="Views\Facturas\AdminDetails.cshtml" />
+    <Content Include="Views\Facturas\AdminVerFacturas.cshtml" />
+    <Content Include="Views\Especialidad\AdminAgregarEspecialidad.cshtml" />
+    <Content Include="Views\Especialidad\AdminEditarEspecialidad.cshtml" />
+    <Content Include="Views\Especialidad\AdminEliminarEspecialidad.cshtml" />
+    <Content Include="Views\Especialidad\AdminVerEspecialidades.cshtml" />
+    <Content Include="Views\Bienes\AdminActualizarBienes.cshtml" />
+    <Content Include="Views\Bienes\AdminAnadirBienes.cshtml" />
+    <Content Include="Views\Bienes\AdminConfirmarBaja.cshtml" />
+    <Content Include="Views\Bienes\AdminVerBienes.cshtml" />
+    <Content Include="Views\Bienes\AdminDarBaja.cshtml" />
+    <Content Include="Views\Bienes\UsuarioVerBienes.cshtml" />
+    <Content Include="Views\Bienes\UsuarioDarBaja.cshtml" />
+    <Content Include="Views\Bienes\UsuarioConfirmarBaja.cshtml" />
+    <Content Include="Views\Bienes\UsuarioAnadirBienes.cshtml" />
+    <Content Include="Views\Bienes\UsuarioActualizarBienes.cshtml" />
+    <Content Include="Views\Login\AccountManage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
