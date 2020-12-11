@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Inventario.Models.Especialidad>
+
+@{
+    ViewBag.Title = "Administrar Especialidades";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2 class="text-center titulo">Administrar Especialidades</h2>
+
+<p>
+    @Html.ActionLink("Agregar Especialidad", "AdminAgregarEspecialidad")
+</p>
+<table class="table">
+    <thead class="table-secondary border-bottom">
+        <tr>
+            <td>Nombre de la Especialidad</td> 
+            <td>Administrar</td>
+        </tr>
+    </thead>
+    
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombreEspecialidad)
+                </td>
+                <td>
+                    @if (item.ID == 1)
+                    {
+
+                    }
+                    else
+                    {
+                    @Html.ActionLink("Editar", "AdminEditarEspecialidad", new { id = item.ID })<span class="d-inline">|</span>
+                    @Html.ActionLink("Eliminar", "AdminEliminarEspecialidad", new { id = item.ID })
+                    } 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

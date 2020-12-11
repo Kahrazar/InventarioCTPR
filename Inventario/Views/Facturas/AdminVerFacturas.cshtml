@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Inventario.Models.Factura>
+
+@{
+    ViewBag.Title = "Ver Facturas";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2 class="text-center titulo" >Ver Facturas</h2>
+<div class="container-fluid">
+  <div class="row ">
+      <div class="col">
+          <p>
+              @Html.ActionLink("Agregar Factura", "AdminAgregarFactura")
+          </p>
+      </div>
+  </div>
+  <div class="row">
+      <table class="table">
+          <thead class="table-secondary">
+              <tr>
+                  <td>Numero de factura</td>
+                  <td>Administrar</td>
+              </tr>
+          </thead>
+          <tbody>
+              @foreach (var item in Model)
+            {
+                  <tr>
+                      <td>
+                          @Html.DisplayFor(modelItem => item.numeroDeFactura)
+                      </td>
+                      <td>
+                         @Html.ActionLink("Detalles", "AdminDetails","Facturas",new { id = item.numeroDeFactura}, new { target = "_blank"})
+                      </td>
+                  </tr>
+              }
+          </tbody>
+      </table>
+
+
+  </div>
+   
+</div>

@@ -1,0 +1,53 @@
+﻿@model Inventario.Models.Usuario
+
+@{
+    ViewBag.Title = "Pagina Principal";
+    Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row border-bottom">
+        <div class="col-3">
+            <p class="fa-2x">Bienvenido,@HttpContext.Current.Session["Nombre"].ToString() </p>
+        </div>
+        <div class="col offset-2">
+            <p class="fa-2x">
+                <i class="fa fa-home"></i>
+                Pagina de Inicio
+            </p>
+
+        </div>
+        <div class="col offset-2">
+            <a href="@Url.Action("login", "login")" class="btn ">
+                <i class="fa fa-sign-out fa-2x"></i>
+                <span class="fa-2x">
+                    Cerrar Sesion
+                </span>
+            </a>
+
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col offset-1">
+            <a href="@Url.Action("VerBienes", "Bienes")" class="btn ">
+                <i class="fa fa-eye fa-2x"></i>
+                <span>
+                    <strong>Ver Bienes</strong>
+                </span>
+            </a>
+        </div>
+    <div class="col">
+        <a href="@Url.Action("VerManual","Home")" target="_blank" class="btn">
+            <i class="fa fa-info fa-2x"></i>
+            <span>
+                <strong>
+                    Manual de usuario
+                </strong>
+            </span>
+        </a>
+
+    </div>
+</div>
+    </div>

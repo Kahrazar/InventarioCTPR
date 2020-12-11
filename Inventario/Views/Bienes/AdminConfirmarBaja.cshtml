@@ -1,0 +1,67 @@
+﻿@model Inventario.Models.Bienes
+
+@{
+    ViewBag.Title = "Confirmar Baja";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h2 class="titulo text-center" >Confirmar Baja</h2>
+
+
+<div class="container-fluid">
+    <h3>Dar De baja este bien?</h3>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-responsive-sm">
+                <thead class="table-secondary border-bottom">
+                    <tr>
+                        <td>Número de patrimonio</td>
+                        <td>Código de Barras</td>
+                        <td>Descripción</td>
+                        <td>Marca</td>
+                        <td>Modelo</td>
+                        <td>Serie</td>
+                        <td>Ley que financia</td>
+                        <td>Ubicacion</td>
+                        <td>Especialidad</td>
+                        <td>Estado</td>
+                        <td>Condicion</td>
+                        <td>Número de factura</td>
+                        <td>Añadido por</td>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td>@Html.DisplayFor(model => model.numeroDePatrimonio)</td>
+                            <td>@Html.DisplayFor(model => model.codigoDeBarras)</td>
+                            <td>@Html.DisplayFor(model => model.descripcion)</td>
+                            <td>@Html.DisplayFor(model => model.marca)</td>
+                             <td>@Html.DisplayFor(model => model.modelo)</td>
+                             <td>@Html.DisplayFor(model=> model.serie)</td>
+                             <td>@Html.DisplayFor(model => model.ley)</td>
+                             <td>@Html.DisplayFor(model => model.ubicacion)</td>
+                             <td>@Html.DisplayFor(model => model.Especialidad.nombreEspecialidad)</td>
+                             <td>@Html.DisplayFor(model => model.estado)</td>
+                             <td>@Html.DisplayFor(model => model.condicion)</td>
+                             <td>@Html.DisplayFor(model => model.numeroDeFactura)</td>
+                             <td>@Html.DisplayFor(model => model.anadidoPor)</td>
+                            </tr>
+                </tbody>
+            </table>
+        </div>
+     
+    </div>
+    <div class="row">
+        @using (Html.BeginForm("AdminCambiarCondicion", "Bienes",FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            
+            @Html.HiddenFor(model => model.numeroDePatrimonio)
+      
+            <div class="form-actions no-color">
+                <input type="submit" value="Confirmar" class="btn btn-default" /> |
+            </div>
+        }
+        @Html.ActionLink("Volver", "AdminDarBaja", "Bienes", FormMethod.Post)
+    </div>  
+</div>

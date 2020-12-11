@@ -1,0 +1,104 @@
+﻿@using Inventario.Models
+@using Inventario.ViewModels
+
+@model Inventario.ViewModels.DarBajaViewModel
+@{
+    ViewBag.Title = "Dar de Baja";
+    Layout = "~/Views/Shared/UsuarioLayout.cshtml";
+}
+
+<h2 class="text-center titulo">Dar de baja bienes</h2>
+
+<div class="container-fluid">
+    
+    <div class="form-row">
+        <div class="col">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <p class="d-none text-danger align-self-start" id="Validar">*Formato Invalido</p>
+        </div>
+    </div>
+    <div class="row">
+        @*Contenido de la barra de filtrado*@
+        <div class="col">
+            @using (Html.BeginForm("UsuarioBuscarDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <label class="mr-1">Buscar Bien:</label>
+                @Html.EditorFor(m => m.numeroDePatrimonio, new { htmlAttributes = new { @class = "form-control mr-1", maxlength = 10 } })
+                <input type="submit" class="btn btn-outline-secondary" id="buscar" value="buscar"/>
+            }
+        </div>
+        <div class="col">
+            @using (Html.BeginForm("UsuarioFiltradoBajas", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <label>Estado</label>
+                @Html.DropDownListFor(model => model.estado, new SelectList(Enum.GetValues(typeof(EstadosVMEnum))))
+                <label class="offset-1">Especialidad</label>
+                @Html.DropDownListFor(model => model.IDEspecialidad, new SelectList(Model.especialidad, "ID", "nombreEspecialidad"), "No Filtrar")
+                <input type="submit" value="Aplicar" class="offset-1 btn btn-outline-secondary" />
+
+            }
+        </div>
+        <div class="col">
+            @using (Html.BeginForm("UsuarioRestablecerListaDarBaja", "Bienes", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Reestablecer" class="btn btn-outline-secondary" />
+                
+            }
+        </div>
+
+
+    
+    </div>
+    <hr />    
+    <div class="row">
+        <table class="table">
+            <thead class="table-secondary border-bottom">
+                <tr>
+                    <td>Número de patrimonio</td>
+                    <td>Código de Barras</td>
+                    <td>Descripción</td>
+                    <td>Marca</td>
+                    <td>Modelo</td>
+                    <td>Serie</td>
+                    <td>Ubicacion</td>
+                    <td>Especialidad</td>
+                    <td>Estado</td>
+                    <td>Numero de Factura</td>
+                    <td>Dar de Baja</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                @if (Model == null)
+                {
+                    <tr><td align="center" colspan="10">Aun no se han anadido objetos</td></tr>
+                }
+                else
+                {
+                    @*<tr><td>Se puede tirar el modelo</td></tr>*@
+                foreach (Bienes bien in Model.bienes)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => bien.numeroDePatrimonio)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.codigoDeBarras)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.descripcion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.marca)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.modelo)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.serie)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.ubicacion)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.Especialidad.nombreEspecialidad)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.estado)</td>
+                        <td>@Html.DisplayFor(modelItem => bien.numeroDeFactura)</td>
+                        <td>@Html.ActionLink("Dar Baja", "UsuarioConfirmarBaja", new { id = bien.numeroDePatrimonio })</td>
+
+                    </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <script src="~/Scripts/validar.js"></script>
+</div>
